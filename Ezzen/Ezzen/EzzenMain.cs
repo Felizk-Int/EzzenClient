@@ -17,6 +17,7 @@ namespace Ezzen
         {
             InitializeComponent();
         }
+
         /*TitleBar Drag*/
         private int mouseX = 0, mouseY = 0;
         private int posmousex = 400, posmousey = 0;
@@ -42,6 +43,7 @@ namespace Ezzen
         {
             mouseDown = false;
         }
+
         /// <summary>
         /// Send Message.
         /// </summary>
@@ -105,6 +107,21 @@ namespace Ezzen
             ChatMenu.Hide();
         }
 
+        private void SearchPanel_MouseEnter(object sender, EventArgs e)
+        {
+            ChatMenu.Hide();
+        }
+
+        private void SearchIcon_MouseEnter(object sender, EventArgs e)
+        {
+            ChatMenu.Hide();
+        }
+
+        private void MenuBar_MouseEnter(object sender, EventArgs e)
+        {
+            ChatMenu.Hide();
+        }
+
         private void CreateGroup_MouseEnter(object sender, EventArgs e)
         {
             CreateGroup.BackColor = System.Drawing.Color.FromArgb(80, Color.White);
@@ -135,6 +152,68 @@ namespace Ezzen
             //ChatBox.SelectionStart = ChatBox.Text.Length;
             // scroll it automatically
             ChatBox.ScrollToCaret();
+        }
+
+        /// <summary>
+        /// Menu Bar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private bool menuBarOpen = false;
+        private void ExpandButton_MouseClick(object sender, MouseEventArgs e)
+        {
+            menuBarOpen = !menuBarOpen;
+            if (menuBarOpen)
+            {
+                MenuList.Show();
+                ChatRoomSel.BackColor = System.Drawing.Color.FromArgb(0, Color.White);
+                SettingSel.BackColor = System.Drawing.Color.FromArgb(0, Color.White);
+            } else
+            {
+                MenuList.Hide();
+            }
+        }
+
+        private void ChatRoomSel_MouseEnter(object sender, EventArgs e)
+        {
+            ChatRoomSel.BackColor = System.Drawing.Color.FromArgb(80, Color.White);
+        }
+
+        private void ChatRoomSel_MouseLeave(object sender, EventArgs e)
+        {
+            ChatRoomSel.BackColor = System.Drawing.Color.FromArgb(0, Color.White);
+        }
+
+        private void SettingSel_MouseEnter(object sender, EventArgs e)
+        {
+            SettingSel.BackColor = System.Drawing.Color.FromArgb(80, Color.White);
+        }
+
+        private void SettingSel_MouseLeave(object sender, EventArgs e)
+        {
+            SettingSel.BackColor = System.Drawing.Color.FromArgb(0, Color.White);
+        }
+
+        private void ChatButton_Click(object sender, EventArgs e)
+        {
+            SettingPage.Hide();
+        }
+
+        private void SettingButton_Click(object sender, EventArgs e)
+        {
+            SettingPage.Show();
+        }
+
+        private void ChatRoomSel_MouseClick(object sender, MouseEventArgs e)
+        {
+            ChatButton_Click(sender, e);
+            MenuList.Hide();
+        }
+
+        private void SettingSel_MouseClick(object sender, MouseEventArgs e)
+        {
+            SettingButton_Click(sender, e);
+            MenuList.Hide();
         }
 
         /// <summary>
