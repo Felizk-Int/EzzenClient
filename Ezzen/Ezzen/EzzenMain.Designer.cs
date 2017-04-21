@@ -39,6 +39,10 @@
             this.ChatButton = new System.Windows.Forms.Button();
             this.ExpandButton = new System.Windows.Forms.Button();
             this.ChatListPanel = new System.Windows.Forms.Panel();
+            this.ChatMenu = new System.Windows.Forms.Panel();
+            this.LeaveGroup = new System.Windows.Forms.Panel();
+            this.JoinGroup = new System.Windows.Forms.Panel();
+            this.CreateGroup = new System.Windows.Forms.Panel();
             this.SearchIcon = new System.Windows.Forms.Panel();
             this.SearchBox = new System.Windows.Forms.Panel();
             this.SearchPanel = new System.Windows.Forms.TextBox();
@@ -50,6 +54,8 @@
             this.SendButton = new System.Windows.Forms.Button();
             this.TitleBar.SuspendLayout();
             this.MenuBar.SuspendLayout();
+            this.ChatListPanel.SuspendLayout();
+            this.ChatMenu.SuspendLayout();
             this.SearchBox.SuspendLayout();
             this.MessagesBox.SuspendLayout();
             this.MessagePanel.SuspendLayout();
@@ -67,6 +73,7 @@
             this.TitleBar.Size = new System.Drawing.Size(1280, 30);
             this.TitleBar.TabIndex = 0;
             this.TitleBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TitleBar_MouseDown);
+            this.TitleBar.MouseEnter += new System.EventHandler(this.TitleBar_MouseEnter);
             this.TitleBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TitleBar_MouseMove);
             this.TitleBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TitleBar_MouseUp);
             // 
@@ -169,10 +176,53 @@
             // 
             // ChatListPanel
             // 
+            this.ChatListPanel.Controls.Add(this.ChatMenu);
             this.ChatListPanel.Location = new System.Drawing.Point(50, 68);
             this.ChatListPanel.Name = "ChatListPanel";
             this.ChatListPanel.Size = new System.Drawing.Size(400, 700);
             this.ChatListPanel.TabIndex = 2;
+            // 
+            // ChatMenu
+            // 
+            this.ChatMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ChatMenu.BackgroundImage")));
+            this.ChatMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ChatMenu.Controls.Add(this.LeaveGroup);
+            this.ChatMenu.Controls.Add(this.JoinGroup);
+            this.ChatMenu.Controls.Add(this.CreateGroup);
+            this.ChatMenu.Location = new System.Drawing.Point(0, 0);
+            this.ChatMenu.Name = "ChatMenu";
+            this.ChatMenu.Size = new System.Drawing.Size(400, 158);
+            this.ChatMenu.TabIndex = 0;
+            this.ChatMenu.Visible = false;
+            this.ChatMenu.MouseEnter += new System.EventHandler(this.ChatMenu_MouseEnter);
+            this.ChatMenu.MouseLeave += new System.EventHandler(this.ChatMenu_MouseLeave);
+            // 
+            // LeaveGroup
+            // 
+            this.LeaveGroup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.LeaveGroup.Location = new System.Drawing.Point(0, 100);
+            this.LeaveGroup.Name = "LeaveGroup";
+            this.LeaveGroup.Size = new System.Drawing.Size(400, 50);
+            this.LeaveGroup.TabIndex = 2;
+            this.LeaveGroup.MouseEnter += new System.EventHandler(this.LeaveGroup_MouseEnter);
+            // 
+            // JoinGroup
+            // 
+            this.JoinGroup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.JoinGroup.Location = new System.Drawing.Point(0, 50);
+            this.JoinGroup.Name = "JoinGroup";
+            this.JoinGroup.Size = new System.Drawing.Size(400, 50);
+            this.JoinGroup.TabIndex = 1;
+            this.JoinGroup.MouseEnter += new System.EventHandler(this.JoinGroup_MouseEnter);
+            // 
+            // CreateGroup
+            // 
+            this.CreateGroup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.CreateGroup.Location = new System.Drawing.Point(0, 0);
+            this.CreateGroup.Name = "CreateGroup";
+            this.CreateGroup.Size = new System.Drawing.Size(400, 50);
+            this.CreateGroup.TabIndex = 0;
+            this.CreateGroup.MouseEnter += new System.EventHandler(this.CreateGroup_MouseEnter);
             // 
             // SearchIcon
             // 
@@ -191,6 +241,7 @@
             this.SearchBox.Name = "SearchBox";
             this.SearchBox.Size = new System.Drawing.Size(328, 38);
             this.SearchBox.TabIndex = 4;
+            this.SearchBox.MouseEnter += new System.EventHandler(this.SearchBox_MouseEnter);
             // 
             // SearchPanel
             // 
@@ -213,6 +264,7 @@
             this.DropDown.Name = "DropDown";
             this.DropDown.Size = new System.Drawing.Size(38, 38);
             this.DropDown.TabIndex = 4;
+            this.DropDown.MouseEnter += new System.EventHandler(this.DropDown_MouseEnter);
             // 
             // MessagesBox
             // 
@@ -222,6 +274,7 @@
             this.MessagesBox.Name = "MessagesBox";
             this.MessagesBox.Size = new System.Drawing.Size(830, 700);
             this.MessagesBox.TabIndex = 5;
+            this.MessagesBox.MouseEnter += new System.EventHandler(this.MessagesBox_MouseEnter);
             // 
             // ChatBox
             // 
@@ -234,6 +287,7 @@
             this.ChatBox.Size = new System.Drawing.Size(820, 690);
             this.ChatBox.TabIndex = 0;
             this.ChatBox.Text = "";
+            this.ChatBox.TextChanged += new System.EventHandler(this.ChatBox_TextChanged);
             // 
             // MessagePanel
             // 
@@ -251,9 +305,8 @@
             this.MsgPanel.ForeColor = System.Drawing.SystemColors.WindowText;
             this.MsgPanel.Location = new System.Drawing.Point(10, 2);
             this.MsgPanel.Margin = new System.Windows.Forms.Padding(10);
-            this.MsgPanel.Multiline = false;
             this.MsgPanel.Name = "MsgPanel";
-            this.MsgPanel.Size = new System.Drawing.Size(730, 34);
+            this.MsgPanel.Size = new System.Drawing.Size(730, 37);
             this.MsgPanel.TabIndex = 0;
             this.MsgPanel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MsgPanel_KeyDown);
             this.MsgPanel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MsgPanel_KeyPress);
@@ -290,9 +343,12 @@
             this.Controls.Add(this.TitleBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "MainWindow";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TitleBar.ResumeLayout(false);
             this.TitleBar.PerformLayout();
             this.MenuBar.ResumeLayout(false);
+            this.ChatListPanel.ResumeLayout(false);
+            this.ChatMenu.ResumeLayout(false);
             this.SearchBox.ResumeLayout(false);
             this.SearchBox.PerformLayout();
             this.MessagesBox.ResumeLayout(false);
@@ -323,6 +379,10 @@
         private System.Windows.Forms.TextBox SearchPanel;
         private System.Windows.Forms.TextBox MsgPanel;
         private System.Windows.Forms.RichTextBox ChatBox;
+        private System.Windows.Forms.Panel ChatMenu;
+        private System.Windows.Forms.Panel CreateGroup;
+        private System.Windows.Forms.Panel LeaveGroup;
+        private System.Windows.Forms.Panel JoinGroup;
     }
 }
 

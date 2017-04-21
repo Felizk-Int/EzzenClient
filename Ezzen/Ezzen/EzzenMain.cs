@@ -61,13 +61,82 @@ namespace Ezzen
 
         private void MsgPanel_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (keyEnter && MsgPanel.Text != "") SendButton_Click(sender, e);
+            if (keyEnter) SendButton_Click(sender, e);
         }
 
         private void MsgPanel_KeyUp(object sender, KeyEventArgs e)
         {
             keyEnter = false;
         }
+
+        /// <summary>
+        /// Chat Menu
+        /// </summary>
+        private void DropDown_MouseEnter(object sender, EventArgs e)
+        {
+            ChatMenu.Show();
+            CreateGroup.BackColor = System.Drawing.Color.FromArgb(0, Color.White);
+            JoinGroup.BackColor = System.Drawing.Color.FromArgb(0, Color.White);
+            LeaveGroup.BackColor = System.Drawing.Color.FromArgb(0, Color.White);
+        }
+
+        private void ChatMenu_MouseEnter(object sender, EventArgs e)
+        {
+            ChatMenu.Show();
+        }
+
+        private void ChatMenu_MouseLeave(object sender, EventArgs e)
+        {
+            ChatMenu.Hide();
+        }
+
+        private void SearchBox_MouseEnter(object sender, EventArgs e)
+        {
+            ChatMenu.Hide();
+        }
+
+        private void MessagesBox_MouseEnter(object sender, EventArgs e)
+        {
+            ChatMenu.Hide();
+        }
+
+        private void TitleBar_MouseEnter(object sender, EventArgs e)
+        {
+            ChatMenu.Hide();
+        }
+
+        private void CreateGroup_MouseEnter(object sender, EventArgs e)
+        {
+            CreateGroup.BackColor = System.Drawing.Color.FromArgb(80, Color.White);
+            JoinGroup.BackColor = System.Drawing.Color.FromArgb(0, Color.White);
+            LeaveGroup.BackColor = System.Drawing.Color.FromArgb(0, Color.White);
+        }
+
+        private void JoinGroup_MouseEnter(object sender, EventArgs e)
+        {
+            CreateGroup.BackColor = System.Drawing.Color.FromArgb(0, Color.White);
+            JoinGroup.BackColor = System.Drawing.Color.FromArgb(80, Color.White);
+            LeaveGroup.BackColor = System.Drawing.Color.FromArgb(0, Color.White);
+        }
+
+        private void LeaveGroup_MouseEnter(object sender, EventArgs e)
+        {
+            CreateGroup.BackColor = System.Drawing.Color.FromArgb(0, Color.White);
+            JoinGroup.BackColor = System.Drawing.Color.FromArgb(0, Color.White);
+            LeaveGroup.BackColor = System.Drawing.Color.FromArgb(80, Color.White);
+        }
+
+        /// <summary>
+        /// Auto Scroll
+        /// </summary>
+        private void ChatBox_TextChanged(object sender, EventArgs e)
+        {
+            // set the current caret position to the end
+            //ChatBox.SelectionStart = ChatBox.Text.Length;
+            // scroll it automatically
+            ChatBox.ScrollToCaret();
+        }
+
         /// <summary>
         /// Operation Buttons
         /// </summary>
