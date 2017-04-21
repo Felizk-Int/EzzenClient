@@ -207,13 +207,13 @@ namespace Ezzen
         private void ChatRoomSel_MouseClick(object sender, MouseEventArgs e)
         {
             ChatButton_Click(sender, e);
-            MenuList.Hide();
+            ExpandButton_MouseClick(sender, e);
         }
 
         private void SettingSel_MouseClick(object sender, MouseEventArgs e)
         {
             SettingButton_Click(sender, e);
-            MenuList.Hide();
+            ExpandButton_MouseClick(sender, e);
         }
 
         /// <summary>
