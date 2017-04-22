@@ -11,12 +11,17 @@ namespace Ezzen
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        [STAThread]
+        //[STAThread]
+        private static MainWindow mW;
+
+        public static MainWindow MW { get => mW; set => mW = value; }
+
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainWindow());
+            MW = new MainWindow();
+            Application.Run(MW);
         }
     }
 }

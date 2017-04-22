@@ -56,14 +56,19 @@
             this.SettingSel = new System.Windows.Forms.Panel();
             this.ChatRoomSel = new System.Windows.Forms.Panel();
             this.SettingPage = new System.Windows.Forms.Panel();
+            this.SignOutButton = new System.Windows.Forms.Button();
+            this.UserIDLabel = new System.Windows.Forms.Label();
+            this.UsernameLabel = new System.Windows.Forms.Label();
+            this.UserID = new System.Windows.Forms.Label();
+            this.Username = new System.Windows.Forms.Label();
             this.TitleBar.SuspendLayout();
             this.MenuBar.SuspendLayout();
-            this.ChatListPanel.SuspendLayout();
             this.ChatMenu.SuspendLayout();
             this.SearchBox.SuspendLayout();
             this.MessagesBox.SuspendLayout();
             this.MessagePanel.SuspendLayout();
             this.MenuList.SuspendLayout();
+            this.SettingPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // SearchIcon
@@ -195,10 +200,10 @@
             // 
             // ChatListPanel
             // 
-            this.ChatListPanel.Controls.Add(this.ChatMenu);
-            this.ChatListPanel.Location = new System.Drawing.Point(50, 68);
+            this.ChatListPanel.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.ChatListPanel.Location = new System.Drawing.Point(55, 73);
             this.ChatListPanel.Name = "ChatListPanel";
-            this.ChatListPanel.Size = new System.Drawing.Size(400, 700);
+            this.ChatListPanel.Size = new System.Drawing.Size(395, 690);
             this.ChatListPanel.TabIndex = 2;
             // 
             // ChatMenu
@@ -208,7 +213,7 @@
             this.ChatMenu.Controls.Add(this.LeaveGroup);
             this.ChatMenu.Controls.Add(this.JoinGroup);
             this.ChatMenu.Controls.Add(this.CreateGroup);
-            this.ChatMenu.Location = new System.Drawing.Point(0, 0);
+            this.ChatMenu.Location = new System.Drawing.Point(50, 68);
             this.ChatMenu.Name = "ChatMenu";
             this.ChatMenu.Size = new System.Drawing.Size(400, 158);
             this.ChatMenu.TabIndex = 0;
@@ -232,6 +237,7 @@
             this.JoinGroup.Name = "JoinGroup";
             this.JoinGroup.Size = new System.Drawing.Size(400, 50);
             this.JoinGroup.TabIndex = 1;
+            this.JoinGroup.Click += new System.EventHandler(this.JoinGroup_Click);
             this.JoinGroup.MouseEnter += new System.EventHandler(this.JoinGroup_MouseEnter);
             // 
             // CreateGroup
@@ -241,6 +247,7 @@
             this.CreateGroup.Name = "CreateGroup";
             this.CreateGroup.Size = new System.Drawing.Size(400, 50);
             this.CreateGroup.TabIndex = 0;
+            this.CreateGroup.Click += new System.EventHandler(this.CreateGroup_Click);
             this.CreateGroup.MouseEnter += new System.EventHandler(this.CreateGroup_MouseEnter);
             // 
             // SearchBox
@@ -258,13 +265,14 @@
             this.SearchPanel.BackColor = System.Drawing.SystemColors.Window;
             this.SearchPanel.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.SearchPanel.Font = new System.Drawing.Font("Goudy Old Style", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.SearchPanel.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.SearchPanel.ForeColor = System.Drawing.SystemColors.ScrollBar;
             this.SearchPanel.Location = new System.Drawing.Point(9, 2);
             this.SearchPanel.Margin = new System.Windows.Forms.Padding(10);
             this.SearchPanel.Name = "SearchPanel";
             this.SearchPanel.Size = new System.Drawing.Size(310, 34);
             this.SearchPanel.TabIndex = 0;
-            this.SearchPanel.Text = "\r\n";
+            this.SearchPanel.Text = "\r\nSearch";
+            this.SearchPanel.Enter += new System.EventHandler(this.SearchPanel_Enter);
             this.SearchPanel.MouseEnter += new System.EventHandler(this.SearchPanel_MouseEnter);
             // 
             // DropDown
@@ -299,14 +307,15 @@
             this.ChatBox.TabIndex = 0;
             this.ChatBox.Text = "";
             this.ChatBox.TextChanged += new System.EventHandler(this.ChatBox_TextChanged);
+            this.ChatBox.MouseEnter += new System.EventHandler(this.ChatBox_MouseEnter);
             // 
             // MessagePanel
             // 
             this.MessagePanel.BackColor = System.Drawing.Color.White;
             this.MessagePanel.Controls.Add(this.MsgPanel);
-            this.MessagePanel.Location = new System.Drawing.Point(450, 730);
+            this.MessagePanel.Location = new System.Drawing.Point(455, 730);
             this.MessagePanel.Name = "MessagePanel";
-            this.MessagePanel.Size = new System.Drawing.Size(750, 38);
+            this.MessagePanel.Size = new System.Drawing.Size(745, 38);
             this.MessagePanel.TabIndex = 6;
             // 
             // MsgPanel
@@ -374,28 +383,89 @@
             // 
             // SettingPage
             // 
+            this.SettingPage.Controls.Add(this.SignOutButton);
+            this.SettingPage.Controls.Add(this.UserIDLabel);
+            this.SettingPage.Controls.Add(this.UsernameLabel);
+            this.SettingPage.Controls.Add(this.UserID);
+            this.SettingPage.Controls.Add(this.Username);
             this.SettingPage.Location = new System.Drawing.Point(50, 30);
             this.SettingPage.Name = "SettingPage";
-            this.SettingPage.Size = new System.Drawing.Size(1230, 738);
+            this.SettingPage.Size = new System.Drawing.Size(400, 738);
             this.SettingPage.TabIndex = 2;
             this.SettingPage.Visible = false;
+            // 
+            // SignOutButton
+            // 
+            this.SignOutButton.BackColor = System.Drawing.Color.DarkRed;
+            this.SignOutButton.FlatAppearance.BorderSize = 0;
+            this.SignOutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SignOutButton.Font = new System.Drawing.Font("Tw Cen MT Condensed Extra Bold", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SignOutButton.ForeColor = System.Drawing.Color.White;
+            this.SignOutButton.Location = new System.Drawing.Point(0, 688);
+            this.SignOutButton.Name = "SignOutButton";
+            this.SignOutButton.Size = new System.Drawing.Size(400, 50);
+            this.SignOutButton.TabIndex = 4;
+            this.SignOutButton.Text = "Sign Out";
+            this.SignOutButton.UseVisualStyleBackColor = false;
+            this.SignOutButton.Click += new System.EventHandler(this.SignOutButton_Click);
+            // 
+            // UserIDLabel
+            // 
+            this.UserIDLabel.AutoSize = true;
+            this.UserIDLabel.Font = new System.Drawing.Font("Tw Cen MT Condensed Extra Bold", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UserIDLabel.Location = new System.Drawing.Point(125, 75);
+            this.UserIDLabel.Name = "UserIDLabel";
+            this.UserIDLabel.Size = new System.Drawing.Size(68, 33);
+            this.UserIDLabel.TabIndex = 3;
+            this.UserIDLabel.Text = "NULL";
+            // 
+            // UsernameLabel
+            // 
+            this.UsernameLabel.AutoSize = true;
+            this.UsernameLabel.Font = new System.Drawing.Font("Tw Cen MT Condensed Extra Bold", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UsernameLabel.Location = new System.Drawing.Point(125, 40);
+            this.UsernameLabel.Name = "UsernameLabel";
+            this.UsernameLabel.Size = new System.Drawing.Size(68, 33);
+            this.UsernameLabel.TabIndex = 2;
+            this.UsernameLabel.Text = "NULL";
+            // 
+            // UserID
+            // 
+            this.UserID.AutoSize = true;
+            this.UserID.Font = new System.Drawing.Font("Tw Cen MT Condensed Extra Bold", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UserID.Location = new System.Drawing.Point(0, 75);
+            this.UserID.Name = "UserID";
+            this.UserID.Size = new System.Drawing.Size(102, 33);
+            this.UserID.TabIndex = 1;
+            this.UserID.Text = "UserID: ";
+            // 
+            // Username
+            // 
+            this.Username.AutoSize = true;
+            this.Username.Font = new System.Drawing.Font("Tw Cen MT Condensed Extra Bold", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Username.Location = new System.Drawing.Point(0, 40);
+            this.Username.Name = "Username";
+            this.Username.Size = new System.Drawing.Size(137, 33);
+            this.Username.TabIndex = 0;
+            this.Username.Text = "Username: ";
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1280, 768);
-            this.Controls.Add(this.MenuList);
-            this.Controls.Add(this.SettingPage);
             this.Controls.Add(this.TitleBar);
+            this.Controls.Add(this.ChatMenu);
             this.Controls.Add(this.DropDown);
             this.Controls.Add(this.SendButton);
             this.Controls.Add(this.MessagePanel);
             this.Controls.Add(this.MessagesBox);
-            this.Controls.Add(this.ChatListPanel);
             this.Controls.Add(this.MenuBar);
             this.Controls.Add(this.SearchIcon);
             this.Controls.Add(this.SearchBox);
+            this.Controls.Add(this.ChatListPanel);
+            this.Controls.Add(this.MenuList);
+            this.Controls.Add(this.SettingPage);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainWindow";
@@ -403,7 +473,6 @@
             this.TitleBar.ResumeLayout(false);
             this.TitleBar.PerformLayout();
             this.MenuBar.ResumeLayout(false);
-            this.ChatListPanel.ResumeLayout(false);
             this.ChatMenu.ResumeLayout(false);
             this.SearchBox.ResumeLayout(false);
             this.SearchBox.PerformLayout();
@@ -411,6 +480,8 @@
             this.MessagePanel.ResumeLayout(false);
             this.MessagePanel.PerformLayout();
             this.MenuList.ResumeLayout(false);
+            this.SettingPage.ResumeLayout(false);
+            this.SettingPage.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -444,6 +515,11 @@
         private System.Windows.Forms.Panel SettingSel;
         private System.Windows.Forms.Panel ChatRoomSel;
         private System.Windows.Forms.Panel SettingPage;
+        private System.Windows.Forms.Label UserID;
+        private System.Windows.Forms.Label Username;
+        private System.Windows.Forms.Button SignOutButton;
+        private System.Windows.Forms.Label UserIDLabel;
+        private System.Windows.Forms.Label UsernameLabel;
     }
 }
 

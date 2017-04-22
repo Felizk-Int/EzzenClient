@@ -7,3 +7,7 @@ C:\Users\Athip\Desktop\DisSysEssen\Ezzen\Ezzen\obj\Debug\Ezzen.Properties.Resour
 C:\Users\Athip\Desktop\DisSysEssen\Ezzen\Ezzen\obj\Debug\Ezzen.csproj.GenerateResource.Cache
 C:\Users\Athip\Desktop\DisSysEssen\Ezzen\Ezzen\obj\Debug\Ezzen.exe
 C:\Users\Athip\Desktop\DisSysEssen\Ezzen\Ezzen\obj\Debug\Ezzen.pdb
+C:\Users\Athip\Desktop\DisSysEssen\Ezzen\Ezzen\obj\Debug\Ezzen.CreateGroupForm.resources
+C:\Users\Athip\Desktop\DisSysEssen\Ezzen\Ezzen\obj\Debug\Ezzen.JoinGroupForm.resources
+C:\Users\Athip\Desktop\DisSysEssen\Ezzen\Ezzen\obj\Debug\Ezzen.LoginForm.resources
+C:\Users\Athip\Desktop\DisSysEssen\Ezzen\Ezzen\obj\Debug\Ezzen.RegForm.resources

@@ -122,6 +122,11 @@ namespace Ezzen
             ChatMenu.Hide();
         }
 
+        private void ChatBox_MouseEnter(object sender, EventArgs e)
+        {
+            ChatMenu.Hide();
+        }
+
         private void CreateGroup_MouseEnter(object sender, EventArgs e)
         {
             CreateGroup.BackColor = System.Drawing.Color.FromArgb(80, Color.White);
@@ -166,6 +171,7 @@ namespace Ezzen
             if (menuBarOpen)
             {
                 MenuList.Show();
+                MenuList.BringToFront();
                 ChatRoomSel.BackColor = System.Drawing.Color.FromArgb(0, Color.White);
                 SettingSel.BackColor = System.Drawing.Color.FromArgb(0, Color.White);
             } else
@@ -202,6 +208,7 @@ namespace Ezzen
         private void SettingButton_Click(object sender, EventArgs e)
         {
             SettingPage.Show();
+            SettingPage.BringToFront();
         }
 
         private void ChatRoomSel_MouseClick(object sender, MouseEventArgs e)
@@ -217,6 +224,42 @@ namespace Ezzen
         }
 
         /// <summary>
+        /// Group Manage
+        /// </summary>
+        private void CreateGroup_Click(object sender, EventArgs e)
+        {
+            CreateGroupForm cgf = new CreateGroupForm();
+            cgf.Show();
+        }
+
+        private void JoinGroup_Click(object sender, EventArgs e)
+        {
+            JoinGroupForm jgf = new JoinGroupForm();
+            jgf.Show();
+        }
+
+
+        /// <summary>
+        /// Sign Out
+        /// </summary>
+        private void SignOutButton_Click(object sender, EventArgs e)
+        {
+            ChatButton_Click(sender, e);
+            this.Hide();
+            LoginForm lf = new LoginForm();
+            lf.Show();
+        }
+
+        /// <summary>
+        /// Search
+        /// </summary>
+        private void SearchPanel_Enter(object sender, EventArgs e)
+        {
+            SearchPanel.Text = "";
+            SearchPanel.ForeColor = Color.Black;
+        }
+
+        /// <summary>
         /// Operation Buttons
         /// </summary>
         private void MinimizeButton_Click(object sender, EventArgs e)
@@ -227,6 +270,7 @@ namespace Ezzen
         private void CloseButton_Click(object sender, EventArgs e)
         {
             this.Close();
+            Application.Exit();
         }
 
     }
