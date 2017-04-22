@@ -36,7 +36,7 @@
             this.UNLabel = new System.Windows.Forms.Label();
             this.PWLabel = new System.Windows.Forms.Label();
             this.PWReLabel = new System.Windows.Forms.Label();
-            this.Close = new System.Windows.Forms.Button();
+            this.CancelButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // RegButton
@@ -126,28 +126,28 @@
             this.PWReLabel.TabIndex = 13;
             this.PWReLabel.Text = "Re-Enter password";
             // 
-            // Close
+            // CancelButton
             // 
-            this.Close.BackColor = System.Drawing.Color.Maroon;
-            this.Close.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Close.FlatAppearance.BorderSize = 0;
-            this.Close.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Close.Font = new System.Drawing.Font("Tw Cen MT", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Close.ForeColor = System.Drawing.Color.White;
-            this.Close.Location = new System.Drawing.Point(0, 300);
-            this.Close.Name = "Close";
-            this.Close.Size = new System.Drawing.Size(420, 40);
-            this.Close.TabIndex = 14;
-            this.Close.Text = "Cancel";
-            this.Close.UseVisualStyleBackColor = false;
-            this.Close.Click += new System.EventHandler(this.Close_Click);
+            this.CancelButton.BackColor = System.Drawing.Color.Maroon;
+            this.CancelButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.CancelButton.FlatAppearance.BorderSize = 0;
+            this.CancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CancelButton.Font = new System.Drawing.Font("Tw Cen MT", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CancelButton.ForeColor = System.Drawing.Color.White;
+            this.CancelButton.Location = new System.Drawing.Point(0, 300);
+            this.CancelButton.Name = "CancelButton";
+            this.CancelButton.Size = new System.Drawing.Size(420, 40);
+            this.CancelButton.TabIndex = 14;
+            this.CancelButton.Text = "Cancel";
+            this.CancelButton.UseVisualStyleBackColor = false;
+            this.CancelButton.Click += new System.EventHandler(this.Close_Click);
             // 
             // RegForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(420, 340);
-            this.Controls.Add(this.Close);
+            this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.PWReLabel);
             this.Controls.Add(this.PWLabel);
             this.Controls.Add(this.UNLabel);
@@ -174,6 +174,6 @@
         private System.Windows.Forms.Label UNLabel;
         private System.Windows.Forms.Label PWLabel;
         private System.Windows.Forms.Label PWReLabel;
-        private System.Windows.Forms.Button Close;
+        private System.Windows.Forms.Button CancelButton;
     }
 }

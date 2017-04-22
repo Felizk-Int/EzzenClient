@@ -1,4 +1,6 @@
-﻿namespace Ezzen
+﻿using System.Windows.Forms;
+
+namespace Ezzen
 {
     partial class MainWindow
     {
@@ -39,7 +41,6 @@
             this.SettingButton = new System.Windows.Forms.Button();
             this.ChatButton = new System.Windows.Forms.Button();
             this.ExpandButton = new System.Windows.Forms.Button();
-            this.ChatListPanel = new System.Windows.Forms.Panel();
             this.ChatMenu = new System.Windows.Forms.Panel();
             this.LeaveGroup = new System.Windows.Forms.Panel();
             this.JoinGroup = new System.Windows.Forms.Panel();
@@ -48,6 +49,8 @@
             this.SearchPanel = new System.Windows.Forms.TextBox();
             this.DropDown = new System.Windows.Forms.Panel();
             this.MessagesBox = new System.Windows.Forms.Panel();
+            this.GroupID = new System.Windows.Forms.Label();
+            this.GroupName = new System.Windows.Forms.Label();
             this.ChatBox = new System.Windows.Forms.RichTextBox();
             this.MessagePanel = new System.Windows.Forms.Panel();
             this.MsgPanel = new System.Windows.Forms.TextBox();
@@ -61,6 +64,7 @@
             this.UsernameLabel = new System.Windows.Forms.Label();
             this.UserID = new System.Windows.Forms.Label();
             this.Username = new System.Windows.Forms.Label();
+            this.GroupPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.TitleBar.SuspendLayout();
             this.MenuBar.SuspendLayout();
             this.ChatMenu.SuspendLayout();
@@ -198,14 +202,6 @@
             this.ExpandButton.UseVisualStyleBackColor = true;
             this.ExpandButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ExpandButton_MouseClick);
             // 
-            // ChatListPanel
-            // 
-            this.ChatListPanel.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ChatListPanel.Location = new System.Drawing.Point(55, 73);
-            this.ChatListPanel.Name = "ChatListPanel";
-            this.ChatListPanel.Size = new System.Drawing.Size(395, 690);
-            this.ChatListPanel.TabIndex = 2;
-            // 
             // ChatMenu
             // 
             this.ChatMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ChatMenu.BackgroundImage")));
@@ -273,6 +269,7 @@
             this.SearchPanel.TabIndex = 0;
             this.SearchPanel.Text = "\r\nSearch";
             this.SearchPanel.Enter += new System.EventHandler(this.SearchPanel_Enter);
+            this.SearchPanel.Leave += new System.EventHandler(this.SearchPanel_Leave);
             this.SearchPanel.MouseEnter += new System.EventHandler(this.SearchPanel_MouseEnter);
             // 
             // DropDown
@@ -288,6 +285,8 @@
             // MessagesBox
             // 
             this.MessagesBox.BackColor = System.Drawing.SystemColors.Control;
+            this.MessagesBox.Controls.Add(this.GroupID);
+            this.MessagesBox.Controls.Add(this.GroupName);
             this.MessagesBox.Controls.Add(this.ChatBox);
             this.MessagesBox.Location = new System.Drawing.Point(450, 30);
             this.MessagesBox.Name = "MessagesBox";
@@ -295,15 +294,37 @@
             this.MessagesBox.TabIndex = 5;
             this.MessagesBox.MouseEnter += new System.EventHandler(this.MessagesBox_MouseEnter);
             // 
+            // GroupID
+            // 
+            this.GroupID.AutoSize = true;
+            this.GroupID.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GroupID.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.GroupID.Location = new System.Drawing.Point(6, 28);
+            this.GroupID.Name = "GroupID";
+            this.GroupID.Size = new System.Drawing.Size(65, 17);
+            this.GroupID.TabIndex = 2;
+            this.GroupID.Text = "Group ID";
+            // 
+            // GroupName
+            // 
+            this.GroupName.AutoSize = true;
+            this.GroupName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GroupName.Font = new System.Drawing.Font("Tw Cen MT", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GroupName.Location = new System.Drawing.Point(0, 0);
+            this.GroupName.Name = "GroupName";
+            this.GroupName.Size = new System.Drawing.Size(139, 28);
+            this.GroupName.TabIndex = 1;
+            this.GroupName.Text = "Group Name";
+            // 
             // ChatBox
             // 
             this.ChatBox.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ChatBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ChatBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.ChatBox.Location = new System.Drawing.Point(5, 5);
+            this.ChatBox.Location = new System.Drawing.Point(5, 55);
             this.ChatBox.Name = "ChatBox";
             this.ChatBox.ReadOnly = true;
-            this.ChatBox.Size = new System.Drawing.Size(820, 690);
+            this.ChatBox.Size = new System.Drawing.Size(820, 640);
             this.ChatBox.TabIndex = 0;
             this.ChatBox.Text = "";
             this.ChatBox.TextChanged += new System.EventHandler(this.ChatBox_TextChanged);
@@ -449,13 +470,24 @@
             this.Username.TabIndex = 0;
             this.Username.Text = "Username: ";
             // 
+            // GroupPanel
+            // 
+            this.GroupPanel.BackColor = System.Drawing.Color.LightGray;
+            this.GroupPanel.Location = new System.Drawing.Point(55, 73);
+            this.GroupPanel.Name = "GroupPanel";
+            this.GroupPanel.Size = new System.Drawing.Size(395, 690);
+            this.GroupPanel.TabIndex = 0;
+            this.GroupPanel1.AutoScroll = true;
+            this.GroupPanel1.WrapContents = false;
+            this.GroupPanel1.FlowDirection = FlowDirection.TopDown;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1280, 768);
             this.Controls.Add(this.TitleBar);
-            this.Controls.Add(this.ChatMenu);
+            this.Controls.Add(this.GroupPanel);
             this.Controls.Add(this.DropDown);
             this.Controls.Add(this.SendButton);
             this.Controls.Add(this.MessagePanel);
@@ -463,9 +495,9 @@
             this.Controls.Add(this.MenuBar);
             this.Controls.Add(this.SearchIcon);
             this.Controls.Add(this.SearchBox);
-            this.Controls.Add(this.ChatListPanel);
             this.Controls.Add(this.MenuList);
             this.Controls.Add(this.SettingPage);
+            this.Controls.Add(this.ChatMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainWindow";
@@ -477,6 +509,7 @@
             this.SearchBox.ResumeLayout(false);
             this.SearchBox.PerformLayout();
             this.MessagesBox.ResumeLayout(false);
+            this.MessagesBox.PerformLayout();
             this.MessagePanel.ResumeLayout(false);
             this.MessagePanel.PerformLayout();
             this.MenuList.ResumeLayout(false);
@@ -497,7 +530,6 @@
         private System.Windows.Forms.Button ExpandButton;
         private System.Windows.Forms.Button SettingButton;
         private System.Windows.Forms.Button ChatButton;
-        private System.Windows.Forms.Panel ChatListPanel;
         private System.Windows.Forms.Panel SearchBox;
         private System.Windows.Forms.Panel DropDown;
         private System.Windows.Forms.Panel MessagesBox;
@@ -520,6 +552,13 @@
         private System.Windows.Forms.Button SignOutButton;
         private System.Windows.Forms.Label UserIDLabel;
         private System.Windows.Forms.Label UsernameLabel;
+        private System.Windows.Forms.Label GroupID;
+        private System.Windows.Forms.Label GroupName;
+        private FlowLayoutPanel GroupPanel;
+
+        public Label GroupID1 { get => GroupID; set => GroupID = value; }
+        public Label GroupName1 { get => GroupName; set => GroupName = value; }
+        public FlowLayoutPanel GroupPanel1 { get => GroupPanel; set => GroupPanel = value; }
     }
 }
 

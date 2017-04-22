@@ -24,6 +24,8 @@ namespace Ezzen
 
         private void Create_Click(object sender, EventArgs e)
         {
+            ChatGroup cg = new ChatGroup(GroupName.Text,"123");
+            Program.MW.GroupPanel1.Controls.Add(cg);
             this.Close();
         }
     }
