@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.IO;
 
 namespace Ezzen
 {
@@ -269,6 +270,40 @@ namespace Ezzen
             }
         }
 
+        /// <summary>
+        /// Onload MW
+        /// </summary>
+        private void MainWindow_Shown(object sender, EventArgs e)
+        {
+            Dictionary<string, string> d = new Dictionary<string, string>();
+            try
+            {
+                using (StreamReader sr = new StreamReader("Config/user"))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        string[] temp = line.Split(' ');
+                        d[temp[0]] = temp[1];
+                    }
+                    sr.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(ex.Message);
+            }
+
+            if (d["[remember]"] == "0")
+            {
+                this.SignOutButton_Click(sender, e);
+            }
+            else
+            {
+
+            }
+        }
 
         /// <summary>
         /// Operation Buttons
@@ -280,6 +315,18 @@ namespace Ezzen
 
         private void CloseButton_Click(object sender, EventArgs e)
         {
+            if (Program.IsAlwaysLogin)
+            {
+                File.WriteAllText("Config/user", String.Empty);
+                using (StreamWriter writer = new StreamWriter("Config/user", true))
+                {
+                    {
+                        writer.WriteLine("[user] 0");
+                        writer.WriteLine("[remember] 1");
+                    }
+                    writer.Close();
+                }
+            }
             this.Close();
             Application.Exit();
         }

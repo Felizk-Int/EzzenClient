@@ -25,9 +25,9 @@ namespace Ezzen
             this.Font = new System.Drawing.Font("Tw Cen MT", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Width = 270;
             this.Height = 50;
-            this.Margin = new Padding(5, 5, 0, 0);
+            this.Margin = new Padding(3, 5, 0, 2);
             this.ForeColor = System.Drawing.Color.Black;
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.BackColor = System.Drawing.Color.FromArgb(255,240, 240, 255);
             this.Text = groupName;
             this.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.MouseClick += chatGroup_MouseClick;
@@ -37,6 +37,12 @@ namespace Ezzen
         {
             Program.MW.GroupName1.Text = groupName;
             Program.MW.GroupID1.Text = gid;
+            Program.MW.GroupName1.Visible = true;
+            Program.MW.GroupID1.Visible = true;
+            Program.MW.ChatBox1.BringToFront();
+            Program.MW.ChatBox1.Visible = true;
+            Program.MW.ChatBox1.Text = "";
+            //Load Message
         }
     }
 }

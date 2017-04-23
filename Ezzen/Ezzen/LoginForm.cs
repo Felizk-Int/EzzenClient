@@ -40,7 +40,9 @@ namespace Ezzen
 
         private void SignIn_Click(object sender, EventArgs e)
         {
+            Program.MW.UsernameLabel1.Text = this.Username.Text;
             Program.MW.Show();
+            Program.IsAlwaysLogin = RememberMe.Checked;
             this.Close();
         }
         /// <summary>

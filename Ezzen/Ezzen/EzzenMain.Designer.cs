@@ -62,9 +62,10 @@ namespace Ezzen
             this.SignOutButton = new System.Windows.Forms.Button();
             this.UserIDLabel = new System.Windows.Forms.Label();
             this.UsernameLabel = new System.Windows.Forms.Label();
-            this.UserID = new System.Windows.Forms.Label();
-            this.Username = new System.Windows.Forms.Label();
+            this.UserIDConst = new System.Windows.Forms.Label();
+            this.UsernameConst = new System.Windows.Forms.Label();
             this.GroupPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.TitleBar.SuspendLayout();
             this.MenuBar.SuspendLayout();
             this.ChatMenu.SuspendLayout();
@@ -73,6 +74,7 @@ namespace Ezzen
             this.MessagePanel.SuspendLayout();
             this.MenuList.SuspendLayout();
             this.SettingPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // SearchIcon
@@ -285,6 +287,7 @@ namespace Ezzen
             // MessagesBox
             // 
             this.MessagesBox.BackColor = System.Drawing.SystemColors.Control;
+            this.MessagesBox.Controls.Add(this.pictureBox1);
             this.MessagesBox.Controls.Add(this.GroupID);
             this.MessagesBox.Controls.Add(this.GroupName);
             this.MessagesBox.Controls.Add(this.ChatBox);
@@ -304,6 +307,7 @@ namespace Ezzen
             this.GroupID.Size = new System.Drawing.Size(65, 17);
             this.GroupID.TabIndex = 2;
             this.GroupID.Text = "Group ID";
+            this.GroupID.Visible = false;
             // 
             // GroupName
             // 
@@ -315,6 +319,7 @@ namespace Ezzen
             this.GroupName.Size = new System.Drawing.Size(139, 28);
             this.GroupName.TabIndex = 1;
             this.GroupName.Text = "Group Name";
+            this.GroupName.Visible = false;
             // 
             // ChatBox
             // 
@@ -327,6 +332,7 @@ namespace Ezzen
             this.ChatBox.Size = new System.Drawing.Size(820, 640);
             this.ChatBox.TabIndex = 0;
             this.ChatBox.Text = "";
+            this.ChatBox.Visible = false;
             this.ChatBox.TextChanged += new System.EventHandler(this.ChatBox_TextChanged);
             this.ChatBox.MouseEnter += new System.EventHandler(this.ChatBox_MouseEnter);
             // 
@@ -407,8 +413,8 @@ namespace Ezzen
             this.SettingPage.Controls.Add(this.SignOutButton);
             this.SettingPage.Controls.Add(this.UserIDLabel);
             this.SettingPage.Controls.Add(this.UsernameLabel);
-            this.SettingPage.Controls.Add(this.UserID);
-            this.SettingPage.Controls.Add(this.Username);
+            this.SettingPage.Controls.Add(this.UserIDConst);
+            this.SettingPage.Controls.Add(this.UsernameConst);
             this.SettingPage.Location = new System.Drawing.Point(50, 30);
             this.SettingPage.Name = "SettingPage";
             this.SettingPage.Size = new System.Drawing.Size(400, 738);
@@ -436,9 +442,9 @@ namespace Ezzen
             this.UserIDLabel.Font = new System.Drawing.Font("Tw Cen MT Condensed Extra Bold", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UserIDLabel.Location = new System.Drawing.Point(125, 75);
             this.UserIDLabel.Name = "UserIDLabel";
-            this.UserIDLabel.Size = new System.Drawing.Size(68, 33);
+            this.UserIDLabel.Size = new System.Drawing.Size(29, 33);
             this.UserIDLabel.TabIndex = 3;
-            this.UserIDLabel.Text = "NULL";
+            this.UserIDLabel.Text = "0";
             // 
             // UsernameLabel
             // 
@@ -446,55 +452,63 @@ namespace Ezzen
             this.UsernameLabel.Font = new System.Drawing.Font("Tw Cen MT Condensed Extra Bold", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UsernameLabel.Location = new System.Drawing.Point(125, 40);
             this.UsernameLabel.Name = "UsernameLabel";
-            this.UsernameLabel.Size = new System.Drawing.Size(68, 33);
+            this.UsernameLabel.Size = new System.Drawing.Size(61, 33);
             this.UsernameLabel.TabIndex = 2;
-            this.UsernameLabel.Text = "NULL";
+            this.UsernameLabel.Text = "user";
             // 
-            // UserID
+            // UserIDConst
             // 
-            this.UserID.AutoSize = true;
-            this.UserID.Font = new System.Drawing.Font("Tw Cen MT Condensed Extra Bold", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UserID.Location = new System.Drawing.Point(0, 75);
-            this.UserID.Name = "UserID";
-            this.UserID.Size = new System.Drawing.Size(102, 33);
-            this.UserID.TabIndex = 1;
-            this.UserID.Text = "UserID: ";
+            this.UserIDConst.AutoSize = true;
+            this.UserIDConst.Font = new System.Drawing.Font("Tw Cen MT Condensed Extra Bold", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UserIDConst.Location = new System.Drawing.Point(0, 75);
+            this.UserIDConst.Name = "UserIDConst";
+            this.UserIDConst.Size = new System.Drawing.Size(102, 33);
+            this.UserIDConst.TabIndex = 1;
+            this.UserIDConst.Text = "UserID: ";
             // 
-            // Username
+            // UsernameConst
             // 
-            this.Username.AutoSize = true;
-            this.Username.Font = new System.Drawing.Font("Tw Cen MT Condensed Extra Bold", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Username.Location = new System.Drawing.Point(0, 40);
-            this.Username.Name = "Username";
-            this.Username.Size = new System.Drawing.Size(137, 33);
-            this.Username.TabIndex = 0;
-            this.Username.Text = "Username: ";
+            this.UsernameConst.AutoSize = true;
+            this.UsernameConst.Font = new System.Drawing.Font("Tw Cen MT Condensed Extra Bold", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UsernameConst.Location = new System.Drawing.Point(0, 40);
+            this.UsernameConst.Name = "UsernameConst";
+            this.UsernameConst.Size = new System.Drawing.Size(137, 33);
+            this.UsernameConst.TabIndex = 0;
+            this.UsernameConst.Text = "Username: ";
             // 
             // GroupPanel
             // 
-            this.GroupPanel.BackColor = System.Drawing.Color.LightGray;
-            this.GroupPanel.Location = new System.Drawing.Point(55, 73);
+            this.GroupPanel.AutoScroll = true;
+            this.GroupPanel.BackColor = System.Drawing.Color.Azure;
+            this.GroupPanel.Location = new System.Drawing.Point(50, 68);
             this.GroupPanel.Name = "GroupPanel";
-            this.GroupPanel.Size = new System.Drawing.Size(395, 690);
+            this.GroupPanel.Size = new System.Drawing.Size(400, 700);
             this.GroupPanel.TabIndex = 0;
-            this.GroupPanel1.AutoScroll = true;
-            this.GroupPanel1.WrapContents = false;
-            this.GroupPanel1.FlowDirection = FlowDirection.TopDown;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Location = new System.Drawing.Point(287, 222);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(256, 256);
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1280, 768);
+            this.Controls.Add(this.MessagesBox);
             this.Controls.Add(this.TitleBar);
-            this.Controls.Add(this.GroupPanel);
             this.Controls.Add(this.DropDown);
             this.Controls.Add(this.SendButton);
             this.Controls.Add(this.MessagePanel);
-            this.Controls.Add(this.MessagesBox);
             this.Controls.Add(this.MenuBar);
             this.Controls.Add(this.SearchIcon);
             this.Controls.Add(this.SearchBox);
+            this.Controls.Add(this.GroupPanel);
             this.Controls.Add(this.MenuList);
             this.Controls.Add(this.SettingPage);
             this.Controls.Add(this.ChatMenu);
@@ -502,6 +516,7 @@ namespace Ezzen
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Shown += new System.EventHandler(this.MainWindow_Shown);
             this.TitleBar.ResumeLayout(false);
             this.TitleBar.PerformLayout();
             this.MenuBar.ResumeLayout(false);
@@ -515,6 +530,7 @@ namespace Ezzen
             this.MenuList.ResumeLayout(false);
             this.SettingPage.ResumeLayout(false);
             this.SettingPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -547,18 +563,22 @@ namespace Ezzen
         private System.Windows.Forms.Panel SettingSel;
         private System.Windows.Forms.Panel ChatRoomSel;
         private System.Windows.Forms.Panel SettingPage;
-        private System.Windows.Forms.Label UserID;
-        private System.Windows.Forms.Label Username;
+        private System.Windows.Forms.Label UserIDConst;
+        private System.Windows.Forms.Label UsernameConst;
         private System.Windows.Forms.Button SignOutButton;
         private System.Windows.Forms.Label UserIDLabel;
         private System.Windows.Forms.Label UsernameLabel;
         private System.Windows.Forms.Label GroupID;
         private System.Windows.Forms.Label GroupName;
         private FlowLayoutPanel GroupPanel;
+        private PictureBox pictureBox1;
 
         public Label GroupID1 { get => GroupID; set => GroupID = value; }
         public Label GroupName1 { get => GroupName; set => GroupName = value; }
         public FlowLayoutPanel GroupPanel1 { get => GroupPanel; set => GroupPanel = value; }
+        public Label UserIDLabel1 { get => UserIDLabel; set => UserIDLabel = value; }
+        public Label UsernameLabel1 { get => UsernameLabel; set => UsernameLabel = value; }
+        public RichTextBox ChatBox1 { get => ChatBox; set => ChatBox = value; }
     }
 }
 
