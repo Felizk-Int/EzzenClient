@@ -37,6 +37,7 @@
             this.PWLabel = new System.Windows.Forms.Label();
             this.PWReLabel = new System.Windows.Forms.Label();
             this.CancelButton = new System.Windows.Forms.Button();
+            this.ErrorMessage = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // RegButton
@@ -142,11 +143,23 @@
             this.CancelButton.UseVisualStyleBackColor = false;
             this.CancelButton.Click += new System.EventHandler(this.Close_Click);
             // 
+            // ErrorMessage
+            // 
+            this.ErrorMessage.AutoSize = true;
+            this.ErrorMessage.ForeColor = System.Drawing.Color.Red;
+            this.ErrorMessage.Location = new System.Drawing.Point(115, 230);
+            this.ErrorMessage.Name = "ErrorMessage";
+            this.ErrorMessage.Size = new System.Drawing.Size(189, 17);
+            this.ErrorMessage.TabIndex = 15;
+            this.ErrorMessage.Text = "Password must be the same.";
+            this.ErrorMessage.Visible = false;
+            // 
             // RegForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(420, 340);
+            this.Controls.Add(this.ErrorMessage);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.PWReLabel);
             this.Controls.Add(this.PWLabel);
@@ -175,5 +188,6 @@
         private System.Windows.Forms.Label PWLabel;
         private System.Windows.Forms.Label PWReLabel;
         private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Label ErrorMessage;
     }
 }

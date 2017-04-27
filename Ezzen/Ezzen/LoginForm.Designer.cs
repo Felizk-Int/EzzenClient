@@ -41,6 +41,7 @@
             this.RegButton = new System.Windows.Forms.Button();
             this.RememberMe = new System.Windows.Forms.CheckBox();
             this.PWForget = new System.Windows.Forms.Label();
+            this.ErrorMessage = new System.Windows.Forms.Label();
             this.TitleBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BigLogo)).BeginInit();
             this.SuspendLayout();
@@ -198,12 +199,24 @@
             this.PWForget.TabIndex = 8;
             this.PWForget.Text = "Forget password?";
             // 
+            // ErrorMessage
+            // 
+            this.ErrorMessage.AutoSize = true;
+            this.ErrorMessage.ForeColor = System.Drawing.Color.Red;
+            this.ErrorMessage.Location = new System.Drawing.Point(93, 325);
+            this.ErrorMessage.Name = "ErrorMessage";
+            this.ErrorMessage.Size = new System.Drawing.Size(214, 17);
+            this.ErrorMessage.TabIndex = 9;
+            this.ErrorMessage.Text = "Username or Password incorrect";
+            this.ErrorMessage.Visible = false;
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.OldLace;
             this.ClientSize = new System.Drawing.Size(400, 600);
+            this.Controls.Add(this.ErrorMessage);
             this.Controls.Add(this.PWForget);
             this.Controls.Add(this.RememberMe);
             this.Controls.Add(this.RegButton);
@@ -239,5 +252,6 @@
         private System.Windows.Forms.Button RegButton;
         private System.Windows.Forms.CheckBox RememberMe;
         private System.Windows.Forms.Label PWForget;
+        private System.Windows.Forms.Label ErrorMessage;
     }
 }

@@ -16,8 +16,14 @@ namespace Ezzen
         //[STAThread]
         private static MainWindow mW;
         public static MainWindow MW { get => mW; set => mW = value; }
+        private static ClientSocket cs = new ClientSocket();
         private static bool isAlwaysLogin = false;
+        private static string ipaddress = "104.199.115.20";
+
+        //getters & setters
         public static bool IsAlwaysLogin { get => isAlwaysLogin; set => isAlwaysLogin = value; }
+        public static ClientSocket CS { get => cs;}
+        public static string IPaddress { get => ipaddress;}
 
         static void Main()
         {
@@ -26,6 +32,7 @@ namespace Ezzen
             MW = new MainWindow();
 
             Application.Run(MW);
+            CS.disconnect();
         }
     }
 }

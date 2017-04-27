@@ -49,6 +49,7 @@
     <Compile Include="ChatGroup.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ClienProcess.cs" />
     <Compile Include="CreateGroupForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,6 +62,7 @@
     <Compile Include="EzzenMain.Designer.cs">
       <DependentUpon>EzzenMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="GroupMessenger.cs" />
     <Compile Include="JoinGroupForm.cs">
       <SubType>Form</SubType>
     </Compile>

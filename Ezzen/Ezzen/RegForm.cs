@@ -34,7 +34,26 @@ namespace Ezzen
 
         private void RegButton_Click(object sender, EventArgs e)
         {
-            if (PW.Text == PWRe.Text) this.Close();
+            if (PW.Text == PWRe.Text)
+            {
+                string str = Program.CS.signup(Username.Text, PW.Text);
+                Console.WriteLine("Sign up message " + str);
+                if (str == "SIGNUP SUCCEED")
+                {
+                    this.Close();
+                }
+                else
+                {
+                    Console.WriteLine("Sign up message " + str);
+                    Console.Write("Error message: " + str);
+                    ErrorMessage.Text = "Oops! Something went wrong.";
+                    ErrorMessage.Show();
+                }
+            } else
+            {
+                ErrorMessage.Text = "Passwords must be the same.";
+                ErrorMessage.Show();
+            }
         }
 
         private void Close_Click(object sender, EventArgs e)

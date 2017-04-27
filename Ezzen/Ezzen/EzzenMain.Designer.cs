@@ -49,6 +49,7 @@ namespace Ezzen
             this.SearchPanel = new System.Windows.Forms.TextBox();
             this.DropDown = new System.Windows.Forms.Panel();
             this.MessagesBox = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.GroupID = new System.Windows.Forms.Label();
             this.GroupName = new System.Windows.Forms.Label();
             this.ChatBox = new System.Windows.Forms.RichTextBox();
@@ -65,16 +66,15 @@ namespace Ezzen
             this.UserIDConst = new System.Windows.Forms.Label();
             this.UsernameConst = new System.Windows.Forms.Label();
             this.GroupPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.TitleBar.SuspendLayout();
             this.MenuBar.SuspendLayout();
             this.ChatMenu.SuspendLayout();
             this.SearchBox.SuspendLayout();
             this.MessagesBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.MessagePanel.SuspendLayout();
             this.MenuList.SuspendLayout();
             this.SettingPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // SearchIcon
@@ -250,7 +250,7 @@ namespace Ezzen
             // 
             // SearchBox
             // 
-            this.SearchBox.BackColor = System.Drawing.Color.White;
+            this.SearchBox.BackColor = System.Drawing.Color.WhiteSmoke;
             this.SearchBox.Controls.Add(this.SearchPanel);
             this.SearchBox.Location = new System.Drawing.Point(88, 30);
             this.SearchBox.Name = "SearchBox";
@@ -296,6 +296,16 @@ namespace Ezzen
             this.MessagesBox.Size = new System.Drawing.Size(830, 700);
             this.MessagesBox.TabIndex = 5;
             this.MessagesBox.MouseEnter += new System.EventHandler(this.MessagesBox_MouseEnter);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Location = new System.Drawing.Point(287, 222);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(256, 256);
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
             // 
             // GroupID
             // 
@@ -479,21 +489,11 @@ namespace Ezzen
             // GroupPanel
             // 
             this.GroupPanel.AutoScroll = true;
-            this.GroupPanel.BackColor = System.Drawing.Color.Azure;
+            this.GroupPanel.BackColor = System.Drawing.Color.White;
             this.GroupPanel.Location = new System.Drawing.Point(50, 68);
             this.GroupPanel.Name = "GroupPanel";
             this.GroupPanel.Size = new System.Drawing.Size(400, 700);
             this.GroupPanel.TabIndex = 0;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Location = new System.Drawing.Point(287, 222);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(256, 256);
-            this.pictureBox1.TabIndex = 3;
-            this.pictureBox1.TabStop = false;
             // 
             // MainWindow
             // 
@@ -508,10 +508,10 @@ namespace Ezzen
             this.Controls.Add(this.MenuBar);
             this.Controls.Add(this.SearchIcon);
             this.Controls.Add(this.SearchBox);
-            this.Controls.Add(this.GroupPanel);
-            this.Controls.Add(this.MenuList);
             this.Controls.Add(this.SettingPage);
             this.Controls.Add(this.ChatMenu);
+            this.Controls.Add(this.GroupPanel);
+            this.Controls.Add(this.MenuList);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainWindow";
@@ -525,12 +525,12 @@ namespace Ezzen
             this.SearchBox.PerformLayout();
             this.MessagesBox.ResumeLayout(false);
             this.MessagesBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.MessagePanel.ResumeLayout(false);
             this.MessagePanel.PerformLayout();
             this.MenuList.ResumeLayout(false);
             this.SettingPage.ResumeLayout(false);
             this.SettingPage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }

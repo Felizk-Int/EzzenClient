@@ -250,6 +250,17 @@ namespace Ezzen
             this.Hide();
             LoginForm lf = new LoginForm();
             lf.Show();
+
+            Program.IsAlwaysLogin = false;
+            File.WriteAllText("Config/user", String.Empty);
+            using (StreamWriter writer = new StreamWriter("Config/user", true))
+            {
+                {
+                    writer.WriteLine("[user] 0");
+                    writer.WriteLine("[remember] 0");
+                }
+                writer.Close();
+            }
         }
 
         /// <summary>
@@ -275,6 +286,8 @@ namespace Ezzen
         /// </summary>
         private void MainWindow_Shown(object sender, EventArgs e)
         {
+            Program.CS.connect(Program.IPaddress);
+            //Load Setting
             Dictionary<string, string> d = new Dictionary<string, string>();
             try
             {
@@ -301,7 +314,7 @@ namespace Ezzen
             }
             else
             {
-
+                this.UsernameLabel.Text = d["[user]"];
             }
         }
 
@@ -321,12 +334,24 @@ namespace Ezzen
                 using (StreamWriter writer = new StreamWriter("Config/user", true))
                 {
                     {
-                        writer.WriteLine("[user] 0");
+                        writer.WriteLine("[user] " + this.UsernameLabel.Text);
                         writer.WriteLine("[remember] 1");
                     }
                     writer.Close();
                 }
+            } else
+            {
+                File.WriteAllText("Config/user", String.Empty);
+                using (StreamWriter writer = new StreamWriter("Config/user", true))
+                {
+                    {
+                        writer.WriteLine("[user] 0");
+                        writer.WriteLine("[remember] 0");
+                    }
+                    writer.Close();
+                }
             }
+            Program.CS.disconnect();
             this.Close();
             Application.Exit();
         }

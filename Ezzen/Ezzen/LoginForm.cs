@@ -40,10 +40,22 @@ namespace Ezzen
 
         private void SignIn_Click(object sender, EventArgs e)
         {
-            Program.MW.UsernameLabel1.Text = this.Username.Text;
+           if (Program.CS.login(Username.Text, Password.Text) != "LOGIN FAIL")
+            {
+                Program.MW.UsernameLabel1.Text = this.Username.Text;
+                Program.MW.Show();
+                Program.IsAlwaysLogin = RememberMe.Checked;
+                Program.MW.UserIDLabel1.Text = Program.CS.ClientID;
+                this.Close();
+            } else
+            {
+                ErrorMessage.Show();
+            }
+            //temp
+            /*Program.MW.UsernameLabel1.Text = this.Username.Text;
             Program.MW.Show();
             Program.IsAlwaysLogin = RememberMe.Checked;
-            this.Close();
+            this.Close();*/
         }
         /// <summary>
         /// Window Drag

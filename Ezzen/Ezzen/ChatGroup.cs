@@ -27,7 +27,7 @@ namespace Ezzen
             this.Height = 50;
             this.Margin = new Padding(3, 5, 0, 2);
             this.ForeColor = System.Drawing.Color.Black;
-            this.BackColor = System.Drawing.Color.FromArgb(255,240, 240, 255);
+            this.BackColor = System.Drawing.Color.FromArgb(150,220, 220, 220);
             this.Text = groupName;
             this.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.MouseClick += chatGroup_MouseClick;
