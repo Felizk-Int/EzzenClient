@@ -37,7 +37,7 @@ namespace Ezzen
             if (PW.Text == PWRe.Text)
             {
                 string str = Program.CS.signup(Username.Text, PW.Text);
-                Console.WriteLine("Sign up message " + str);
+                Console.WriteLine("Sign up message: " + str);
                 if (str == "SIGNUP SUCCEED")
                 {
                     this.Close();
@@ -45,7 +45,7 @@ namespace Ezzen
                 else
                 {
                     Console.WriteLine("Sign up message " + str);
-                    Console.Write("Error message: " + str);
+                    //Console.Write("Error message: " + str);
                     ErrorMessage.Text = "Oops! Something went wrong.";
                     ErrorMessage.Show();
                 }

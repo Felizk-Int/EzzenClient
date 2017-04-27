@@ -58,10 +58,12 @@ namespace Ezzen
 
             Console.WriteLine(msg);
             String[] proc_msg = Message.splitString(msg);
+            Console.WriteLine(proc_msg.Length + " proc_msg: " + proc_msg[0]);
             if (proc_msg[0] == "R")
             {
                 if (proc_msg[1] == "SUCC") return "SIGNUP SUCCEED";
                 else if (proc_msg[1] == "FAIL") return "SIGNUP FAIL";
+                else Console.WriteLine("FAILURE HERE!");
             }
             return "ERROR";
         }
