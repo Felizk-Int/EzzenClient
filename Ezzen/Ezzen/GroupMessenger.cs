@@ -89,7 +89,7 @@ namespace Ezzen
             }
         }
 
-        public void removeTopBuffer()
+        private void removeTopBuffer()
         {
             lock (syncLock)
             {

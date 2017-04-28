@@ -11,3 +11,16 @@ C:\Users\Athip\Desktop\DisSysEssen\Ezzen\Ezzen\obj\Debug\Ezzen.CreateGroupForm.r
 C:\Users\Athip\Desktop\DisSysEssen\Ezzen\Ezzen\obj\Debug\Ezzen.JoinGroupForm.resources
 C:\Users\Athip\Desktop\DisSysEssen\Ezzen\Ezzen\obj\Debug\Ezzen.LoginForm.resources
 C:\Users\Athip\Desktop\DisSysEssen\Ezzen\Ezzen\obj\Debug\Ezzen.RegForm.resources
+C:\Users\User\Source\Repos\EzzenClient\Ezzen\Ezzen\bin\Debug\Ezzen.exe.config
+C:\Users\User\Source\Repos\EzzenClient\Ezzen\Ezzen\bin\Debug\Ezzen.exe
+C:\Users\User\Source\Repos\EzzenClient\Ezzen\Ezzen\bin\Debug\Ezzen.pdb
+C:\Users\User\Source\Repos\EzzenClient\Ezzen\Ezzen\obj\Debug\Ezzen.csprojResolveAssemblyReference.cache
+C:\Users\User\Source\Repos\EzzenClient\Ezzen\Ezzen\obj\Debug\Ezzen.CreateGroupForm.resources
+C:\Users\User\Source\Repos\EzzenClient\Ezzen\Ezzen\obj\Debug\Ezzen.MainWindow.resources
+C:\Users\User\Source\Repos\EzzenClient\Ezzen\Ezzen\obj\Debug\Ezzen.JoinGroupForm.resources
+C:\Users\User\Source\Repos\EzzenClient\Ezzen\Ezzen\obj\Debug\Ezzen.LoginForm.resources
+C:\Users\User\Source\Repos\EzzenClient\Ezzen\Ezzen\obj\Debug\Ezzen.Properties.Resources.resources
+C:\Users\User\Source\Repos\EzzenClient\Ezzen\Ezzen\obj\Debug\Ezzen.RegForm.resources
+C:\Users\User\Source\Repos\EzzenClient\Ezzen\Ezzen\obj\Debug\Ezzen.csproj.GenerateResource.Cache
+C:\Users\User\Source\Repos\EzzenClient\Ezzen\Ezzen\obj\Debug\Ezzen.exe
+C:\Users\User\Source\Repos\EzzenClient\Ezzen\Ezzen\obj\Debug\Ezzen.pdb
