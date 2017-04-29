@@ -27,7 +27,6 @@ C:\Users\User\Source\Repos\EzzenClient\Ezzen\Ezzen\obj\Debug\Ezzen.pdb
 C:\Users\Athip\Desktop\DisSysEssen\EzzenClient\Ezzen\Ezzen\bin\Debug\Ezzen.exe.config
 C:\Users\Athip\Desktop\DisSysEssen\EzzenClient\Ezzen\Ezzen\bin\Debug\Ezzen.exe
 C:\Users\Athip\Desktop\DisSysEssen\EzzenClient\Ezzen\Ezzen\bin\Debug\Ezzen.pdb
-C:\Users\Athip\Desktop\DisSysEssen\EzzenClient\Ezzen\Ezzen\obj\Debug\Ezzen.csprojResolveAssemblyReference.cache
 C:\Users\Athip\Desktop\DisSysEssen\EzzenClient\Ezzen\Ezzen\obj\Debug\Ezzen.CreateGroupForm.resources
 C:\Users\Athip\Desktop\DisSysEssen\EzzenClient\Ezzen\Ezzen\obj\Debug\Ezzen.MainWindow.resources
 C:\Users\Athip\Desktop\DisSysEssen\EzzenClient\Ezzen\Ezzen\obj\Debug\Ezzen.JoinGroupForm.resources

@@ -18,7 +18,7 @@ namespace Ezzen
         {
             InitializeComponent();
         }
-        
+
         /*TitleBar Drag*/
         private int mouseX = 0, mouseY = 0;
         private int posmousex = 400, posmousey = 0;
@@ -176,7 +176,8 @@ namespace Ezzen
                 MenuList.BringToFront();
                 ChatRoomSel.BackColor = System.Drawing.Color.FromArgb(0, Color.White);
                 SettingSel.BackColor = System.Drawing.Color.FromArgb(0, Color.White);
-            } else
+            }
+            else
             {
                 MenuList.Hide();
             }
@@ -274,7 +275,7 @@ namespace Ezzen
 
         private void SearchPanel_Leave(object sender, EventArgs e)
         {
-            if(SearchPanel.Text == "")
+            if (SearchPanel.Text == "")
             {
                 SearchPanel.Text = "Search";
                 SearchPanel.ForeColor = Color.Silver;
@@ -339,7 +340,8 @@ namespace Ezzen
                     }
                     writer.Close();
                 }
-            } else
+            }
+            else
             {
                 File.WriteAllText("Config/user", String.Empty);
                 using (StreamWriter writer = new StreamWriter("Config/user", true))

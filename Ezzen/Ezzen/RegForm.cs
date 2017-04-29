@@ -37,7 +37,7 @@ namespace Ezzen
             if (PW.Text == PWRe.Text)
             {
                 string str = Program.CS.signup(Username.Text, PW.Text);
-                for (int i = 0; i < 10000000; i++) ;
+                for (int i = 0; i < 100000000; i++) ;
                 Console.WriteLine("Sign up message: " + str);
                 if (str == "SIGNUP SUCCEED")
                 {
@@ -49,7 +49,8 @@ namespace Ezzen
                     ErrorMessage.Text = "Oops! Something went wrong.";
                     ErrorMessage.Show();
                 }
-            } else
+            }
+            else
             {
                 ErrorMessage.Text = "Passwords must be the same.";
                 ErrorMessage.Show();
