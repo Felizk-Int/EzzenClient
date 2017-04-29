@@ -319,6 +319,15 @@ namespace Ezzen
             }
         }
 
+        public void MainWindow_Enter(object sender, EventArgs e)
+        {
+            GroupPanel1.Controls.Clear();
+            foreach (ChatGroup c in Program.GroupList)
+            {
+                GroupPanel1.Controls.Add(c);
+            }
+        }
+
         /// <summary>
         /// Operation Buttons
         /// </summary>

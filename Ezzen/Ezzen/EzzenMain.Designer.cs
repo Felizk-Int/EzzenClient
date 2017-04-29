@@ -517,6 +517,7 @@ namespace Ezzen
             this.Name = "MainWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Shown += new System.EventHandler(this.MainWindow_Shown);
+            this.Enter += new System.EventHandler(this.MainWindow_Enter);
             this.TitleBar.ResumeLayout(false);
             this.TitleBar.PerformLayout();
             this.MenuBar.ResumeLayout(false);

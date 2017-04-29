@@ -15,21 +15,24 @@ namespace Ezzen
         /// </summary>
         //[STAThread]
         private static MainWindow mW;
-        public static MainWindow MW { get => mW; set => mW = value; }
         private static ClientSocket cs = new ClientSocket();
         private static bool isAlwaysLogin = false;
-        private static string ipaddress = "104.199.115.20";//"35.185.224.125";
-
+        private static string ipaddress = "104.199.115.20";
+        private static string ipaddress_res = "35.185.224.125";
+        private static List<ChatGroup> groupList = new List<ChatGroup>();
         //getters & setters
+        public static MainWindow MW { get => mW;}
         public static bool IsAlwaysLogin { get => isAlwaysLogin; set => isAlwaysLogin = value; }
         public static ClientSocket CS { get => cs;}
         public static string IPaddress { get => ipaddress;}
+        public static string IPaddress_res { get => ipaddress_res;}
+        public static List<ChatGroup> GroupList { get => groupList; set => groupList = value; }
 
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            MW = new MainWindow();
+            mW = new MainWindow();
 
             Application.Run(MW);
             CS.disconnect();

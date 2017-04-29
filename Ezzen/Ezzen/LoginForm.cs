@@ -52,11 +52,6 @@ namespace Ezzen
             {
                 ErrorMessage.Show();
             }
-            //temp
-            /*Program.MW.UsernameLabel1.Text = this.Username.Text;
-            Program.MW.Show();
-            Program.IsAlwaysLogin = RememberMe.Checked;
-            this.Close();*/
         }
         /// <summary>
         /// Window Drag

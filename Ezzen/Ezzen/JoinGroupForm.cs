@@ -24,6 +24,11 @@ namespace Ezzen
 
         private void Join_Click(object sender, EventArgs e)
         {
+            //Program.CS.joinGroup(GroupID.Text);
+            ChatGroup cg = new ChatGroup(GroupID.Text, GroupID.Text);
+            //Program.MW.GroupPanel1.Controls.Add(cg);
+            Program.GroupList.Add(cg);
+            Program.MW.MainWindow_Enter(sender, e);
             this.Close();
         }
     }
