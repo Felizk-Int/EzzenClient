@@ -104,7 +104,7 @@ namespace Ezzen
 
     public class Message
     {
-        public const char Separator = ' ';//((char)007);
+        public const char Separator = ' ';// ((char)007);
 
         private uint messageNo;
         private String clientID;
@@ -137,6 +137,7 @@ namespace Ezzen
 
         public static String[] splitString(String msg)
         {
+            Console.WriteLine("YOOHOO!, I'm here!");
             return msg.Split(Separator);
         }
     }

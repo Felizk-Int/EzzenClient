@@ -57,17 +57,24 @@ namespace Ezzen
             Console.WriteLine(msg);
             sendMsg(msg);
 
+            for (int i = 0; i < 10000000; i++) ;
+
             msg = recvMessage();
 
+            for (int i = 0; i < 10000000; i++) ;
+
             Console.WriteLine(msg);
-            String[] proc_msg = Message.splitString(msg);
-            Console.WriteLine(proc_msg.Length + " proc_msg: " + proc_msg[0]);
+
+            if(msg == "R" + Message.Separator + "SUCC") return "SIGNUP SUCCEED";
+            else if (msg == "R" + Message.Separator + "FAIL") return "SIGNUP FAIL";
+            /*String[] proc_msg = Message.splitString(msg);
+            Console.WriteLine(proc_msg.Length + " proc_msg: " + proc_msg);
             if (proc_msg[0] == "R")
             {
                 if (proc_msg[1] == "SUCC") return "SIGNUP SUCCEED";
                 else if (proc_msg[1] == "FAIL") return "SIGNUP FAIL";
                 else Console.WriteLine("FAILURE HERE!");
-            }
+            }*/
             return "ERROR";
         }
 
