@@ -54,24 +54,13 @@ namespace Ezzen
         public String signup(String username, String password)
         {
             String msg = "C" + Message.Separator + "SIGN" + Message.Separator + username + Message.Separator + password;
-            Console.WriteLine(msg);
             sendMsg(msg);
-
-            for (int i = 0; i < 10000000; i++) ;
-
             msg = recvMessage();
-
-            for (int i = 0; i < 10000000; i++) ;
-
-            /*if(msg == "R" + Message.Separator + "SUCC") return "SIGNUP SUCCEED";
-            else if (msg == "R" + Message.Separator + "FAIL") return "SIGNUP FAIL";*/
             String[] proc_msg = Message.splitString(msg);
-            //Console.WriteLine(proc_msg.Length + " proc_msg: " + proc_msg[0].ToString() + " " + proc_msg[1]);
-            if (proc_msg[0].ToString() == "R")
+            if (proc_msg[0] == "R")
             {
                 if (proc_msg[1] == "SUCC") return "SIGNUP SUCCEED";
                 else if (proc_msg[1] == "FAIL") return "SIGNUP FAIL";
-                else Console.WriteLine("FAILURE HERE!");
             }
             return "ERROR";
         }
@@ -155,8 +144,7 @@ namespace Ezzen
             {
                 byte[] inStream = new byte[512];
                 serverStream.Read(inStream, 0, 512);
-                //Console.WriteLine(inStream);
-                return System.Text.Encoding.ASCII.GetString(inStream).Trim();
+                return System.Text.Encoding.ASCII.GetString(inStream).Trim((char)000, '\n');
             }
         }
 

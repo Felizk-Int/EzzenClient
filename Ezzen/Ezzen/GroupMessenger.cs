@@ -137,7 +137,6 @@ namespace Ezzen
 
         public static String[] splitString(String msg)
         {
-            Console.WriteLine("YOOHOO!, I'm here!");
             return msg.Split(Separator);
         }
     }

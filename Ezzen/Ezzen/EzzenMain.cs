@@ -357,6 +357,5 @@ namespace Ezzen
             this.Close();
             Application.Exit();
         }
-
     }
 }
