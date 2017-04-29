@@ -7,14 +7,16 @@ using System.Windows.Forms;
 
 namespace Ezzen
 {
-    public class ChatGroup : Button
+    public class ChatGroup : Button, IComparable
     {
         private string groupName;
         private string gid;
+        private string latestMID = "0";
 
+        //getters & setters
         public string GroupName { get => groupName; }
         public string Gid { get => gid; }
-
+        public string LatestMID { get => latestMID; set => latestMID = value; }
 
         public ChatGroup(string gName, string gID)
         {
@@ -43,6 +45,11 @@ namespace Ezzen
             Program.MW.ChatBox1.Visible = true;
             Program.MW.ChatBox1.Text = "";
             //Load Message
+        }
+
+        public int CompareTo(object x)
+        {
+            return ((ChatGroup) x).latestMID.CompareTo(latestMID);
         }
     }
 }

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.IO;
+using System.Collections;
 
 namespace Ezzen
 {
@@ -283,8 +284,9 @@ namespace Ezzen
         }
 
         /// <summary>
-        /// Onload MW
+        /// Onload MW & Enter MW
         /// </summary>
+
         private void MainWindow_Shown(object sender, EventArgs e)
         {
             Program.CS.connect(Program.IPaddress);
@@ -322,11 +324,14 @@ namespace Ezzen
         public void MainWindow_Enter(object sender, EventArgs e)
         {
             GroupPanel1.Controls.Clear();
+            Program.GroupList.Sort();
             foreach (ChatGroup c in Program.GroupList)
             {
                 GroupPanel1.Controls.Add(c);
             }
         }
+
+        
 
         /// <summary>
         /// Operation Buttons
