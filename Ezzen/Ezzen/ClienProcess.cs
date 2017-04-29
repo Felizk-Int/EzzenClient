@@ -9,12 +9,14 @@ namespace Ezzen
 
     public class ClientSocket
     {
+
         private System.Net.Sockets.TcpClient clientSocket;
         private NetworkStream serverStream;
         private String clientID;
         private String cachePath;
         private Thread recvMessageThread;
         private readonly object syncLock;
+        private readonly object streamLock;
 
         private Dictionary<String, GroupMessenger> groupChats;
 
@@ -30,6 +32,7 @@ namespace Ezzen
             groupChats = new Dictionary<string, GroupMessenger>();
             recvMessageThread = new Thread(recvMessageAsyn);
             syncLock = new object();
+            streamLock = new object();
             //connect(ipaddress);
         }
 
@@ -127,45 +130,36 @@ namespace Ezzen
 
         public void loadUnread(String groupID)
         {
-            lock (syncLock)
-            {
-                String msg = "C" + Message.Separator + "LUNR" + Message.Separator + clientID + Message.Separator + groupID + Message.Separator + groupChats[groupID].getLastMessageNo().ToString();
-                sendMsg(msg);
-                do
-                {
-                    msg = recvMessage();
-                    String[] proc_msg = Message.splitString(msg);
-                    if (proc_msg[0] == "R" && proc_msg[1] == "FINS") break;
-                    if (proc_msg[0] == "M")
-                    {
-                        groupChats[groupID].feedMessage(new Message(Convert.ToUInt32(proc_msg[1]), proc_msg[2], proc_msg[3], Convert.ToDateTime(proc_msg[4])));
-                    }
-                } while (true);
-            }
+            String msg = "C" + Message.Separator + "LUNR" + Message.Separator + clientID + Message.Separator + groupID + Message.Separator + groupChats[groupID].getLastMessageNo().ToString();
+            sendMsg(msg);
         }
 
         private void sendMsg(String msg)
         {
-            byte[] outStream = System.Text.Encoding.ASCII.GetBytes(msg);
-            serverStream.Write(outStream, 0, outStream.Length);
-            serverStream.Flush();
+            lock (streamLock)
+            {
+                byte[] outStream = System.Text.Encoding.ASCII.GetBytes(msg);
+                serverStream.Write(outStream, 0, outStream.Length);
+                serverStream.Flush();
+            }
         }
 
         private String recvMessage()
         {
-            byte[] inStream = new byte[512];
-            serverStream.Read(inStream, 0, 512);
-            //Console.WriteLine(inStream);
-            return System.Text.Encoding.ASCII.GetString(inStream).Trim();
+            lock (streamLock)
+            {
+                byte[] inStream = new byte[512];
+                serverStream.Read(inStream, 0, 512);
+                //Console.WriteLine(inStream);
+                return System.Text.Encoding.ASCII.GetString(inStream).Trim();
+            }
         }
 
         private void recvMessageAsyn()
         {
             while (true)
             {
-                byte[] inStream = new byte[512];
-                serverStream.Read(inStream, 0, 512);
-                String msg = System.Text.Encoding.ASCII.GetString(inStream).Trim();
+                String msg = recvMessage();
                 String[] proc_msg = Message.splitString(msg);
                 if (proc_msg[0] == "M")
                 {
@@ -174,6 +168,10 @@ namespace Ezzen
                     {
                         if (groupChats.ContainsKey(proc_msg[2])) groupChats[proc_msg[2]].feedBuffer(tmp);
                     }
+                }
+                else if (proc_msg[0] == "C")
+                {
+                    // Connect to sub server
                 }
             }
         }
