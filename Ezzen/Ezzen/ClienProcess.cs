@@ -32,6 +32,7 @@ namespace Ezzen
             cachePath = null;
             groupChats = new Dictionary<string, GroupMessenger>();
             recvMessageThread = new Thread(recvMessageAsyn);
+            recvMessageThread.IsBackground = true;
             syncLock = new object();
             streamLock = new object();
             connect("104.199.115.20");
