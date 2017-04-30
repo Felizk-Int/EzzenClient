@@ -72,6 +72,11 @@ namespace Ezzen
             reg.Show();
         }
 
+        private void LoginForm_Shown(object sender, EventArgs e)
+        {
+            Program.CS.connect(Program.IPaddress);
+        }
+
         private void TitleBar_MouseMove(object sender, MouseEventArgs e)
         {
             if (mouseDown)

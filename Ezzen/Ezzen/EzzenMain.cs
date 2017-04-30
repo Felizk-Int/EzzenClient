@@ -258,7 +258,11 @@ namespace Ezzen
             Program.MW.MsgPanel1.Hide();
             Program.MW.MsgPanel1.Text = "";
             Program.MW.SendButton1.Hide();
+            Program.GroupList = new List<ChatGroup>();
             this.Hide();
+            Program.CS.disconnect();
+            Program.CS = new ClientSocket();
+            //for (int i = 0; i < 100000000; i++) ;
             LoginForm lf = new LoginForm();
             lf.Show();
 
@@ -298,7 +302,7 @@ namespace Ezzen
 
         private void MainWindow_Shown(object sender, EventArgs e)
         {
-            Program.CS.connect(Program.IPaddress);
+            //Program.CS.connect(Program.IPaddress);
             //Load Setting
             Dictionary<string, string> d = new Dictionary<string, string>();
             try
@@ -328,6 +332,8 @@ namespace Ezzen
             {
                 this.UsernameLabel.Text = d["[user]"];
             }
+
+            MainWindow_Enter(sender, e);
         }
 
         public void MainWindow_Enter(object sender, EventArgs e)

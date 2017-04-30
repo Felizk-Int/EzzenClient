@@ -23,7 +23,7 @@ namespace Ezzen
         //getters & setters
         public static MainWindow MW { get => mW;}
         public static bool IsAlwaysLogin { get => isAlwaysLogin; set => isAlwaysLogin = value; }
-        public static ClientSocket CS { get => cs;}
+        public static ClientSocket CS { get => cs; set => cs = value; }
         public static string IPaddress { get => ipaddress;}
         public static string IPaddress_res { get => ipaddress_res;}
         public static List<ChatGroup> GroupList { get => groupList; set => groupList = value; }
@@ -33,7 +33,8 @@ namespace Ezzen
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             mW = new MainWindow();
-
+            CS.connect(ipaddress);
+            //for (int i = 0; i < 100000000; i++) ;
             Application.Run(MW);
             CS.disconnect();
         }
