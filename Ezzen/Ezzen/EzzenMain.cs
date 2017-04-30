@@ -258,7 +258,8 @@ namespace Ezzen
             Program.MW.MsgPanel1.Hide();
             Program.MW.MsgPanel1.Text = "";
             Program.MW.SendButton1.Hide();
-            Program.GroupList = new List<ChatGroup>();
+            Program.GroupList.Clear();
+            GroupPanel1.Controls.Clear();
             this.Hide();
             Program.CS.disconnect();
             Program.CS = new ClientSocket();
