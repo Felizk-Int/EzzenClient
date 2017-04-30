@@ -44,6 +44,10 @@ namespace Ezzen
             Program.MW.ChatBox1.BringToFront();
             Program.MW.ChatBox1.Visible = true;
             Program.MW.ChatBox1.Text = "";
+            Program.MW.MessagePanel1.Show();
+            Program.MW.MsgPanel1.Show();
+            Program.MW.MsgPanel1.Text = "";
+            Program.MW.SendButton1.Show();
             //Load Message
         }
 

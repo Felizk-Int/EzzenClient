@@ -249,6 +249,15 @@ namespace Ezzen
         private void SignOutButton_Click(object sender, EventArgs e)
         {
             ChatButton_Click(sender, e);
+            Program.MW.GroupName1.Visible = false;
+            Program.MW.GroupID1.Visible = false;
+            Program.MW.ChatBox1.SendToBack();
+            Program.MW.ChatBox1.Visible = false;
+            Program.MW.ChatBox1.Text = "";
+            Program.MW.MessagePanel1.Hide();
+            Program.MW.MsgPanel1.Hide();
+            Program.MW.MsgPanel1.Text = "";
+            Program.MW.SendButton1.Hide();
             this.Hide();
             LoginForm lf = new LoginForm();
             lf.Show();

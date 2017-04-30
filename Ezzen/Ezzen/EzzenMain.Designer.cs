@@ -354,6 +354,7 @@ namespace Ezzen
             this.MessagePanel.Name = "MessagePanel";
             this.MessagePanel.Size = new System.Drawing.Size(745, 38);
             this.MessagePanel.TabIndex = 6;
+            this.MessagePanel.Visible = false;
             // 
             // MsgPanel
             // 
@@ -365,6 +366,7 @@ namespace Ezzen
             this.MsgPanel.Name = "MsgPanel";
             this.MsgPanel.Size = new System.Drawing.Size(730, 37);
             this.MsgPanel.TabIndex = 0;
+            this.MsgPanel.Visible = false;
             this.MsgPanel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MsgPanel_KeyDown);
             this.MsgPanel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MsgPanel_KeyPress);
             this.MsgPanel.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MsgPanel_KeyUp);
@@ -382,6 +384,7 @@ namespace Ezzen
             this.SendButton.TabIndex = 7;
             this.SendButton.Text = "Send";
             this.SendButton.UseVisualStyleBackColor = false;
+            this.SendButton.Visible = false;
             this.SendButton.Click += new System.EventHandler(this.SendButton_Click);
             // 
             // MenuList
@@ -580,6 +583,9 @@ namespace Ezzen
         public Label UserIDLabel1 { get => UserIDLabel; set => UserIDLabel = value; }
         public Label UsernameLabel1 { get => UsernameLabel; set => UsernameLabel = value; }
         public RichTextBox ChatBox1 { get => ChatBox; set => ChatBox = value; }
+        public Panel MessagePanel1 { get => MessagePanel; }
+        public Button SendButton1 { get => SendButton; }
+        public TextBox MsgPanel1 { get => MsgPanel; set => MsgPanel = value; }
     }
 }
 
