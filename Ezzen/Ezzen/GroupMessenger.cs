@@ -2,6 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Threading;
+using System.Globalization;
 
 namespace Ezzen
 {
@@ -126,12 +127,18 @@ namespace Ezzen
 
         public String toCacheString()
         {
-            return messageNo.ToString() + Separator + clientID + Separator + message + Separator + timestamp.ToString();
+            Console.WriteLine(timestamp.ToString());
+            return messageNo.ToString() + Separator + clientID + Separator + message + Separator + timestamp.ToString("yyyy-MM-dd HH:mm:ss.fffffff",
+                                       CultureInfo.InvariantCulture);
         }
 
         public static Message cacheStringToMessage(String msg)
         {
             String[] msgs = msg.Split(Separator);
+            foreach (string s in msgs)
+            {
+                Console.Write(s + " ");
+            }
             return new Message(Convert.ToUInt32(msgs[0]), msgs[1], msgs[2], Convert.ToDateTime(msgs[3]));
         }
 

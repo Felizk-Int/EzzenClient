@@ -34,7 +34,6 @@ namespace Ezzen
             Application.SetCompatibleTextRenderingDefault(false);
             mW = new MainWindow();
             CS.connect(ipaddress);
-            //for (int i = 0; i < 100000000; i++) ;
             Application.Run(MW);
             CS.disconnect();
         }

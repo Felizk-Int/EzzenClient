@@ -19,7 +19,7 @@ namespace Ezzen
         private readonly object streamLock;
 
         private Dictionary<String, GroupMessenger> groupChats;
-
+        private Dictionary<String, int> gcount;
         //getters & setters;
         public string ClientID { get => clientID; }
         public string something = "";
@@ -31,6 +31,7 @@ namespace Ezzen
             clientID = null;
             cachePath = null;
             groupChats = new Dictionary<string, GroupMessenger>();
+            gcount = new Dictionary<string, int>();
             recvMessageThread = new Thread(recvMessageAsyn);
             syncLock = new object();
             streamLock = new object();
@@ -55,8 +56,12 @@ namespace Ezzen
         public String signup(String username, String password)
         {
             String msg = "C" + Message.Separator + "SIGN" + Message.Separator + username + Message.Separator + password;
-            sendMsg(msg);
-            msg = recvMessage();
+            lock (syncLock)
+            {
+                sendMsg(msg);
+                msg = recvMessage();
+            }
+
             String[] proc_msg = Message.splitString(msg);
             if (proc_msg[0] == "R")
             {
@@ -69,9 +74,13 @@ namespace Ezzen
         public String login(String username, String password)
         {
             String msg = "C" + Message.Separator + "LOGN" + Message.Separator + username + Message.Separator + password;
-            sendMsg(msg);
 
-            msg = recvMessage();
+            lock (syncLock)
+            {
+                sendMsg(msg);
+
+                msg = recvMessage();
+            }
             String[] proc_msg = Message.splitString(msg);
             if (proc_msg[0] == "R")
             {
@@ -96,14 +105,16 @@ namespace Ezzen
                 {
                     groupChats.Add(groupID, new GroupMessenger(groupID, clientID));
                     groupChats[groupID].startThread();
+                    gcount[groupID] = 1;
                 }
             }
             // Add group on screen
-            if (!groupChats.ContainsKey(groupID))
+            if (gcount[groupID] == 1)
             {
                 ChatGroup cg = new ChatGroup(groupID, groupID);
                 Program.GroupList.Add(cg);
                 Program.MW.MainWindow_Enter(new object(), new EventArgs());
+                gcount[groupID]++;
             }
         }
 
@@ -135,7 +146,7 @@ namespace Ezzen
         public void loadUnread(String groupID)
         {
             String msg = "C" + Message.Separator + "LUNR" + Message.Separator + clientID + Message.Separator + groupID + Message.Separator + groupChats[groupID].getLastMessageNo().ToString();
-            sendMsg(msg);
+            lock (syncLock) sendMsg(msg);
         }
 
         private void sendMsg(String msg)
@@ -202,6 +213,17 @@ namespace Ezzen
                     sw.WriteLine(pair.Key);
                     pair.Value.saveCache();
                 }
+            }
+        }
+
+        public void chatMsgSend(string message)
+        {
+            lock (syncLock)
+            {
+                Message msg = new Message(1, Program.MW.UserIDLabel1.Text, message, DateTime.Now);
+                sendMsg(msg.toCacheString());
+                string m = recvMessage();
+                Message mm = Message.cacheStringToMessage(m);
             }
         }
     }

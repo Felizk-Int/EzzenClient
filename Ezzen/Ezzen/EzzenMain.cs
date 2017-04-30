@@ -52,6 +52,7 @@ namespace Ezzen
         private void SendButton_Click(object sender, EventArgs e)
         {
             if (MsgPanel.Text == "") return;
+            Program.CS.chatMsgSend(MsgPanel.Text);
             ChatBox.AppendText("You said:");
             ChatBox.AppendText("\n" + MsgPanel.Text + "\n");
             MsgPanel.Focus();
