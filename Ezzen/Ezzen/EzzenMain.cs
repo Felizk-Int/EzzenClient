@@ -15,9 +15,13 @@ namespace Ezzen
 {
     public partial class MainWindow : Form
     {
+
+        ClientSocket socket;
+
         public MainWindow()
         {
             InitializeComponent();
+            socket = new ClientSocket();
         }
 
         /*TitleBar Drag*/
@@ -261,8 +265,6 @@ namespace Ezzen
             Program.GroupList.Clear();
             GroupPanel1.Controls.Clear();
             this.Hide();
-            Program.CS.disconnect();
-            Program.CS = new ClientSocket();
             LoginForm lf = new LoginForm();
             lf.Show();
 

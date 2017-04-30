@@ -25,6 +25,7 @@ namespace Ezzen
         private void CloseButton_Click(object sender, EventArgs e)
         {
             this.Close();
+            Program.CS.disconnect();
             Application.Exit();
         }
 
@@ -78,7 +79,7 @@ namespace Ezzen
 
         private void LoginForm_Shown(object sender, EventArgs e)
         {
-            Program.CS.connect(Program.IPaddress);
+            //Program.CS.connect(Program.IPaddress);
         }
 
         private void TitleBar_MouseMove(object sender, MouseEventArgs e)

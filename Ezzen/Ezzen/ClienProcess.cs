@@ -17,7 +17,7 @@ namespace Ezzen
         private Thread recvMessageThread;
         private readonly object syncLock;
         private readonly object streamLock;
-
+        
         private Dictionary<String, GroupMessenger> groupChats;
 
         //getters & setters;
@@ -34,14 +34,15 @@ namespace Ezzen
             recvMessageThread = new Thread(recvMessageAsyn);
             syncLock = new object();
             streamLock = new object();
-            //connect(ipaddress);
+            connect("104.199.115.20");
         }
 
         public void connect(String ipaddress)
         {
             clientSocket.Connect(ipaddress, 8888);
             serverStream = clientSocket.GetStream();
-            //recvMessageThread.Start();
+            serverStream.ReadTimeout = 500;
+            recvMessageThread.Start();
         }
 
         public void disconnect()
@@ -152,12 +153,18 @@ namespace Ezzen
         {
             lock (streamLock)
             {
-                byte[] inStream = new byte[512];
-                serverStream.Read(inStream, 0, 512);
-                return System.Text.Encoding.ASCII.GetString(inStream).Trim((char)000, '\n');
-            }
-        }
+                try{
+                    byte[] inStream = new byte[512];
+                    serverStream.Read(inStream, 0, 512);
+                    return System.Text.Encoding.ASCII.GetString(inStream).Trim((char)000, '\n');
+                }
+                catch (IOException){
 
+                }
+            }
+            return "";
+        }
+        
         private void recvMessageAsyn()
         {
             while (true)
@@ -171,10 +178,6 @@ namespace Ezzen
                     {
                         if (groupChats.ContainsKey(proc_msg[2])) groupChats[proc_msg[2]].feedBuffer(tmp);
                     }
-                }
-                else if (proc_msg[0] == "C")
-                {
-                    // Connect to sub server
                 }
             }
         }
