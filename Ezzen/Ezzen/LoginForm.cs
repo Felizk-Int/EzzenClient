@@ -46,6 +46,10 @@ namespace Ezzen
                 Program.MW.Show();
                 Program.IsAlwaysLogin = RememberMe.Checked;
                 Program.MW.UserIDLabel1.Text = Program.CS.ClientID;
+                if (Program.IsAlwaysLogin)
+                {
+                    Program.CS.something = Password.Text;
+                }
                 this.Close();
             }
             else

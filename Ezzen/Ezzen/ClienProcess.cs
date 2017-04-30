@@ -22,6 +22,7 @@ namespace Ezzen
 
         //getters & setters;
         public string ClientID { get => clientID; }
+        public string something = "";
 
         public ClientSocket()
         {
@@ -91,10 +92,19 @@ namespace Ezzen
             {
                 String msg = "C" + Message.Separator + "JOIN" + Message.Separator + clientID + Message.Separator + groupID;
                 sendMsg(msg);
-                groupChats.Add(groupID, new GroupMessenger(groupID, clientID));
-                groupChats[groupID].startThread();
+                if (!groupChats.ContainsKey(groupID))
+                {
+                    groupChats.Add(groupID, new GroupMessenger(groupID, clientID));
+                    groupChats[groupID].startThread();
+                }
             }
             // Add group on screen
+            if (!groupChats.ContainsKey(groupID))
+            {
+                ChatGroup cg = new ChatGroup(groupID, groupID);
+                Program.GroupList.Add(cg);
+                Program.MW.MainWindow_Enter(new object(), new EventArgs());
+            }
         }
 
         public void exitGroup(String groupID)
@@ -132,9 +142,9 @@ namespace Ezzen
         {
             lock (streamLock)
             {
+                serverStream.Flush();
                 byte[] outStream = System.Text.Encoding.ASCII.GetBytes(msg);
                 serverStream.Write(outStream, 0, outStream.Length);
-                serverStream.Flush();
             }
         }
 

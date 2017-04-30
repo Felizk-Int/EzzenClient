@@ -263,7 +263,6 @@ namespace Ezzen
             this.Hide();
             Program.CS.disconnect();
             Program.CS = new ClientSocket();
-            //for (int i = 0; i < 100000000; i++) ;
             LoginForm lf = new LoginForm();
             lf.Show();
 
@@ -273,6 +272,7 @@ namespace Ezzen
             {
                 {
                     writer.WriteLine("[user] 0");
+                    writer.WriteLine("[pass] 0");
                     writer.WriteLine("[remember] 0");
                 }
                 writer.Close();
@@ -331,7 +331,9 @@ namespace Ezzen
             }
             else
             {
-                this.UsernameLabel.Text = d["[user]"];
+                Program.CS.login(d["[user]"], d["[pass]"]);
+                Program.MW.UsernameLabel1.Text = d["[user]"];
+                Program.MW.UserIDLabel1.Text = Program.CS.ClientID;
             }
 
             MainWindow_Enter(sender, e);
@@ -366,6 +368,7 @@ namespace Ezzen
                 {
                     {
                         writer.WriteLine("[user] " + this.UsernameLabel.Text);
+                        writer.WriteLine("[pass] " + Program.CS.something);
                         writer.WriteLine("[remember] 1");
                     }
                     writer.Close();
@@ -378,6 +381,7 @@ namespace Ezzen
                 {
                     {
                         writer.WriteLine("[user] 0");
+                        writer.WriteLine("[pass] 0");
                         writer.WriteLine("[remember] 0");
                     }
                     writer.Close();
