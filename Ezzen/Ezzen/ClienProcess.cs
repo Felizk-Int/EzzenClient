@@ -19,6 +19,7 @@ namespace Ezzen
         private readonly object streamLock;
         
         private Dictionary<String, GroupMessenger> groupChats;
+        private bool backupServer;
 
         //getters & setters;
         public string ClientID { get => clientID; }
@@ -35,6 +36,7 @@ namespace Ezzen
             recvMessageThread.IsBackground = true;
             syncLock = new object();
             streamLock = new object();
+            backupServer = false;
             connect("104.199.115.20");
         }
 
@@ -81,11 +83,22 @@ namespace Ezzen
                 {
                     clientID = proc_msg[2];
                     cachePath = "localcache\\" + clientID + ".txt";
+                    //loadCache();
                     return clientID;
                 }
                 else if (proc_msg[1] == "FAIL") return "LOGIN FAIL";
             }
             return "ERROR";
+        }
+
+        public void logout(){
+            lock (syncLock){
+                String msg = "C" + Message.Separator + "LOGO" + Message.Separator + clientID;
+                sendMsg(msg);
+                clientID = null;
+                cachePath = null;
+                //saveCache();
+            }
         }
 
         public void joinGroup(String groupID)
@@ -160,7 +173,14 @@ namespace Ezzen
                     return System.Text.Encoding.ASCII.GetString(inStream).Trim((char)000, '\n');
                 }
                 catch (IOException){
-
+                    try{
+                        recvMessageThread.Abort();
+                        if (!backupServer) { connect("35.185.224.125"); backupServer = true; }
+                        else { connect("104.199.115.20"); backupServer = false; }
+                    }
+                    catch (IOException){
+                        //GG all server is down.
+                    }
                 }
             }
             return "";
@@ -206,6 +226,7 @@ namespace Ezzen
                     sw.WriteLine(pair.Key);
                     pair.Value.saveCache();
                 }
+                groupChats.Clear();
             }
         }
     }

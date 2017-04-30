@@ -305,7 +305,6 @@ namespace Ezzen
 
         private void MainWindow_Shown(object sender, EventArgs e)
         {
-            //Program.CS.connect(Program.IPaddress);
             //Load Setting
             Dictionary<string, string> d = new Dictionary<string, string>();
             try
