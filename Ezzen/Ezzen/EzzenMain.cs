@@ -57,7 +57,7 @@ namespace Ezzen
         private void SendButton_Click(object sender, EventArgs e)
         {
             if (MsgPanel.Text == "") return;
-            socket.send(GroupID.Text, UsernameLabel.Text, MsgPanel.Text, DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.fffffff", CultureInfo.InvariantCulture));
+            socket.send(GroupID.Text, UserIDLabel.Text, MsgPanel.Text, DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.fffffff", CultureInfo.InvariantCulture));
             ChatBox.AppendText("You said:");
             ChatBox.AppendText("\n" + MsgPanel.Text + "\n");
             MsgPanel.Focus();

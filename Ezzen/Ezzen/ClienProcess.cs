@@ -183,9 +183,16 @@ namespace Ezzen
         {
             lock (streamLock)
             {
-                serverStream.Flush();
-                byte[] outStream = System.Text.Encoding.ASCII.GetBytes(msg);
-                serverStream.Write(outStream, 0, outStream.Length);
+                try
+                {
+                    serverStream.Flush();
+                    byte[] outStream = System.Text.Encoding.ASCII.GetBytes(msg);
+                    serverStream.Write(outStream, 0, outStream.Length);
+                }
+                catch (IOException)
+                {
+                    
+                }
             }
         }
 
@@ -217,6 +224,7 @@ namespace Ezzen
             while (true)
             {
                 String msg = recvMessage();
+                Console.WriteLine(msg);
                 String[] proc_msg = Message.splitString(msg);
                 if (proc_msg[0] == "M")
                 {
@@ -256,15 +264,10 @@ namespace Ezzen
             }
         }
 
-        public string send(string groupid, string cid, string message, string time)
+        public void send(string groupid, string cid, string message, string time)
         {
             string msg = "M" + Message.Separator + groupid + Message.Separator + cid + Message.Separator + message + Message.Separator + time;
             sendMsg(msg);
-
-            msg = recvMessage();
-            Console.WriteLine(msg);
-            String[] proc_msg = Message.splitString(msg);
-            return "ERROR";
         }
     }
 }
