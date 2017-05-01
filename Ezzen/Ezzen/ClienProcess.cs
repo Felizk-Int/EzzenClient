@@ -19,6 +19,7 @@ namespace Ezzen
         private readonly object streamLock;
         
         private Dictionary<String, GroupMessenger> groupChats;
+        private Dictionary<String, bool> hasgroup;
         private bool backupServer;
 
         //getters & setters;
@@ -32,6 +33,7 @@ namespace Ezzen
             clientID = null;
             cachePath = null;
             groupChats = new Dictionary<string, GroupMessenger>();
+            hasgroup = new Dictionary<string, bool>();
             recvMessageThread = new Thread(recvMessageAsyn);
             recvMessageThread.IsBackground = true;
             syncLock = new object();
@@ -110,12 +112,14 @@ namespace Ezzen
                 if (!groupChats.ContainsKey(groupID))
                 {
                     groupChats.Add(groupID, new GroupMessenger(groupID, clientID));
+                    hasgroup.Add(groupID, false);
                     groupChats[groupID].startThread();
                 }
             }
             // Add group on screen
-            if (!groupChats.ContainsKey(groupID))
+            if (hasgroup[groupID] == false)
             {
+                hasgroup[groupID] = true;
                 ChatGroup cg = new ChatGroup(groupID, groupID);
                 Program.GroupList.Add(cg);
                 Program.MW.MainWindow_Enter(new object(), new EventArgs());
