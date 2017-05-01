@@ -15,7 +15,6 @@ namespace Ezzen
         /// </summary>
         //[STAThread]
         private static MainWindow mW;
-        private static ClientSocket cs = new ClientSocket();
         private static bool isAlwaysLogin = false;
         private static string ipaddress = "104.199.115.20";
         private static string ipaddress_res = "35.185.224.125";
@@ -23,7 +22,6 @@ namespace Ezzen
         //getters & setters
         public static MainWindow MW { get => mW;}
         public static bool IsAlwaysLogin { get => isAlwaysLogin; set => isAlwaysLogin = value; }
-        public static ClientSocket CS { get => cs; set => cs = value; }
         public static string IPaddress { get => ipaddress;}
         public static string IPaddress_res { get => ipaddress_res;}
         public static List<ChatGroup> GroupList { get => groupList; set => groupList = value; }

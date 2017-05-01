@@ -268,6 +268,7 @@ namespace Ezzen
         {
             string msg = "M" + Message.Separator + groupid + Message.Separator + cid + Message.Separator + message + Message.Separator + time;
             sendMsg(msg);
+            Console.WriteLine(msg);
         }
     }
 }

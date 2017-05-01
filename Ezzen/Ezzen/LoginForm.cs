@@ -25,7 +25,7 @@ namespace Ezzen
         private void CloseButton_Click(object sender, EventArgs e)
         {
             this.Close();
-            Program.CS.disconnect();
+            Program.MW.Socket.disconnect();
             Application.Exit();
         }
 
@@ -41,15 +41,15 @@ namespace Ezzen
 
         private void SignIn_Click(object sender, EventArgs e)
         {
-            if (Program.CS.login(Username.Text, Password.Text) != "LOGIN FAIL")
+            if (Program.MW.Socket.login(Username.Text, Password.Text) != "LOGIN FAIL")
             {
                 Program.MW.UsernameLabel1.Text = this.Username.Text;
                 Program.MW.Show();
                 Program.IsAlwaysLogin = RememberMe.Checked;
-                Program.MW.UserIDLabel1.Text = Program.CS.ClientID;
+                Program.MW.UserIDLabel1.Text = Program.MW.Socket.ClientID;
                 if (Program.IsAlwaysLogin)
                 {
-                    Program.CS.something = Password.Text;
+                    Program.MW.Socket.something = Password.Text;
                 }
                 this.Close();
             }

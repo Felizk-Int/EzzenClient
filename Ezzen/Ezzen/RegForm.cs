@@ -36,7 +36,7 @@ namespace Ezzen
         {
             if (PW.Text == PWRe.Text)
             {
-                string str = Program.CS.signup(Username.Text, PW.Text);
+                string str = Program.MW.Socket.signup(Username.Text, PW.Text);
                 for (int i = 0; i < 100000000; i++) ;
                 Console.WriteLine("Sign up message: " + str);
                 if (str == "SIGNUP SUCCEED")

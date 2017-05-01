@@ -24,7 +24,7 @@ namespace Ezzen
 
         private void Create_Click(object sender, EventArgs e)
         {
-            Program.CS.joinGroup(GroupName.Text);
+            Program.MW.Socket.joinGroup(GroupName.Text);
             this.Close();
         }
     }
