@@ -68,6 +68,12 @@ namespace Ezzen
         {
             chats.Add(message);
             // Show message on screen
+            /*ChatBox.AppendText("You said:");
+            ChatBox.AppendText("\n" + MsgPanel.Text + "\n");*/
+            string msg = "Client ID: " + message.clientID + " said (" + message.timestamp.ToString() +") :";
+            Program.MW.ChatBox1.AppendText(msg);
+            msg = "\n" + message.message + "\n";
+            Program.MW.ChatBox1.AppendText(msg);
             lastMessageNo++;
         }
 
@@ -107,9 +113,9 @@ namespace Ezzen
         public const char Separator = ' ';// ((char)007);
 
         private uint messageNo;
-        private String clientID;
-        private String message;
-        private DateTime timestamp;
+        public String clientID;
+        public String message;
+        public DateTime timestamp;
 
         public Message(uint messageNo, String clientID, String message, DateTime timestamp)
         {
