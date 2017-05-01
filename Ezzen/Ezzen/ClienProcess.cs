@@ -255,5 +255,16 @@ namespace Ezzen
                 groupChats.Clear();
             }
         }
+
+        public string send(string groupid, string cid, string message, string time)
+        {
+            string msg = "M" + Message.Separator + groupid + Message.Separator + cid + Message.Separator + message + Message.Separator + time;
+            sendMsg(msg);
+
+            msg = recvMessage();
+            Console.WriteLine(msg);
+            String[] proc_msg = Message.splitString(msg);
+            return "ERROR";
+        }
     }
 }

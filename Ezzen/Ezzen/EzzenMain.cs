@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.IO;
 using System.Collections;
+using System.Globalization;
 
 namespace Ezzen
 {
@@ -56,6 +57,7 @@ namespace Ezzen
         private void SendButton_Click(object sender, EventArgs e)
         {
             if (MsgPanel.Text == "") return;
+            socket.send(GroupID.Text, UsernameLabel.Text, MsgPanel.Text, DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.fffffff", CultureInfo.InvariantCulture));
             ChatBox.AppendText("You said:");
             ChatBox.AppendText("\n" + MsgPanel.Text + "\n");
             MsgPanel.Focus();
