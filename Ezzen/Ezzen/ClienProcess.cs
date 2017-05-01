@@ -137,6 +137,17 @@ namespace Ezzen
                 groupChats.Remove(groupID);
             }
             // Remove group on screen 
+            if (hasgroup[groupID])
+            {
+                hasgroup[groupID] = false;
+                foreach (ChatGroup g in Program.GroupList)
+                {
+                    if(g.GroupName == groupID)
+                    {
+                        Program.GroupList.Remove(g);
+                    }
+                }
+            }
         }
 
         public void leaveGroup(String groupID)
@@ -149,6 +160,17 @@ namespace Ezzen
                 groupChats.Remove(groupID);
             }
             // Remove group on screen and delete local cache
+            if (hasgroup[groupID])
+            {
+                hasgroup[groupID] = false;
+                foreach (ChatGroup g in Program.GroupList)
+                {
+                    if (g.GroupName == groupID)
+                    {
+                        Program.GroupList.Remove(g);
+                    }
+                }
+            }
         }
 
         public void loadUnread(String groupID)
