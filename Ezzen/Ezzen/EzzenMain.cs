@@ -72,7 +72,7 @@ namespace Ezzen
 
         private void MsgPanel_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (keyEnter) SendButton_Click(sender, e);
+            if (keyEnter) SendButton_Click(sender, (EventArgs)e);
         }
 
         private void MsgPanel_KeyUp(object sender, KeyEventArgs e)
@@ -282,6 +282,8 @@ namespace Ezzen
                 }
                 writer.Close();
             }
+
+            socket.logout();
         }
 
         /// <summary>
@@ -391,6 +393,7 @@ namespace Ezzen
                     writer.Close();
                 }
             }
+            socket.logout();
             socket.disconnect();
             this.Close();
             Application.Exit();
