@@ -2,6 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Ezzen
 {
@@ -16,14 +17,17 @@ namespace Ezzen
         private readonly object syncLock;
 
         private SortedList<uint, Message> buffer;
+        private ChatBox chatBox;
 
-        public GroupMessenger(String groupID, String clientID)
+        public GroupMessenger(String groupID, String clientID, ChatBox chatBox)
         {
             this.groupID = groupID;
             this.clientID = clientID;
+            this.chatBox = chatBox;
             chats = new List<Message>();
             buffer = new SortedList<uint, Message>();
             recvMessageThread = new Thread(removeTopBuffer);
+            recvMessageThread.IsBackground = true;
             syncLock = new object();
             cachePath = "localcache\\" + clientID + "_" + groupID + ".txt";
             lastMessageNo = 0;
@@ -41,26 +45,32 @@ namespace Ezzen
 
         public UInt32 loadCache()
         {
-            using (StreamReader sr = File.OpenText(cachePath))
+            try
             {
-                String msg;
-                while ((msg = sr.ReadLine()) != null)
+                using (StreamReader sr = File.OpenText(cachePath))
                 {
-                    feedMessage(Message.cacheStringToMessage(msg));
-                    lastMessageNo++;
+                    String msg;
+                    while ((msg = sr.ReadLine()) != null)
+                    {
+                        feedMessage(Message.cacheStringToMessage(msg));
+                    }
+                    sr.Close();
                 }
             }
+            catch (FileNotFoundException) { }
             return lastMessageNo;
         }
 
         public void saveCache()
         {
+            System.IO.File.Create(cachePath).Close();
             using (StreamWriter sw = File.CreateText(cachePath))
             {
                 foreach (Message msg in chats)
                 {
                     sw.WriteLine(msg.toCacheString());
                 }
+                sw.Close();
             }
         }
 
@@ -68,12 +78,10 @@ namespace Ezzen
         {
             chats.Add(message);
             // Show message on screen
-            /*ChatBox.AppendText("You said:");
-            ChatBox.AppendText("\n" + MsgPanel.Text + "\n");*/
             string msg = "Client ID: " + message.clientID + " said (" + message.timestamp.ToString() +") :";
-            Program.MW.ChatBox1.AppendText(msg);
+            chatBox.AppendText(msg);
             msg = "\n" + message.message + "\n";
-            Program.MW.ChatBox1.AppendText(msg);
+            chatBox.AppendText(msg);
             lastMessageNo++;
         }
 
@@ -97,12 +105,14 @@ namespace Ezzen
 
         private void removeTopBuffer()
         {
-            lock (syncLock)
-            {
-                if (buffer.Count != 0 && lastMessageNo + 1 == buffer.Keys[0])
+            while (true){
+                lock (syncLock)
                 {
-                    feedMessage(buffer.Values[0]);
-                    buffer.RemoveAt(0);
+                    if(buffer.Count != 0 && lastMessageNo + 1 == buffer.Keys[0])
+                    {
+                        feedMessage(buffer.Values[0]);
+                        buffer.RemoveAt(0);
+                    }
                 }
             }
         }
@@ -110,7 +120,7 @@ namespace Ezzen
 
     public class Message
     {
-        public const char Separator = ' ';// ((char)007);
+        public const char Separator = ((char)007);
 
         private uint messageNo;
         public String clientID;

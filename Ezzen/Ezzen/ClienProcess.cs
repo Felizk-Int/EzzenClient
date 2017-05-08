@@ -39,12 +39,12 @@ namespace Ezzen
             syncLock = new object();
             streamLock = new object();
             backupServer = false;
-            connect("104.199.115.20");
+            connect("104.199.115.20", 8888);
         }
 
-        public void connect(String ipaddress)
+        public void connect(String ipaddress, int port)
         {
-            clientSocket.Connect(ipaddress, 8888);
+            clientSocket.Connect(ipaddress, port);
             serverStream = clientSocket.GetStream();
             serverStream.ReadTimeout = 500;
             recvMessageThread.Start();
@@ -61,8 +61,11 @@ namespace Ezzen
         public String signup(String username, String password)
         {
             String msg = "C" + Message.Separator + "SIGN" + Message.Separator + username + Message.Separator + password;
-            sendMsg(msg);
-            msg = recvMessage();
+            lock (streamLock)
+            {
+                sendMsg(msg);
+                msg = recvMessage();
+            }
             String[] proc_msg = Message.splitString(msg);
             if (proc_msg[0] == "R")
             {
@@ -75,9 +78,11 @@ namespace Ezzen
         public String login(String username, String password)
         {
             String msg = "C" + Message.Separator + "LOGN" + Message.Separator + username + Message.Separator + password;
-            sendMsg(msg);
-
-            msg = recvMessage();
+            lock (streamLock)
+            {
+                sendMsg(msg);
+                msg = recvMessage();
+            }
             String[] proc_msg = Message.splitString(msg);
             if (proc_msg[0] == "R")
             {
@@ -97,9 +102,9 @@ namespace Ezzen
             lock (syncLock){
                 String msg = "C" + Message.Separator + "LOGO" + Message.Separator + clientID;
                 sendMsg(msg);
+                //saveCache();
                 clientID = null;
                 cachePath = null;
-                //saveCache();
             }
         }
 
@@ -111,17 +116,19 @@ namespace Ezzen
                 sendMsg(msg);
                 if (!groupChats.ContainsKey(groupID))
                 {
-                    groupChats.Add(groupID, new GroupMessenger(groupID, clientID));
+                    //groupChats.Add(groupID, new GroupMessenger(groupID, clientID));
                     hasgroup.Add(groupID, false);
-                    groupChats[groupID].startThread();
+                    //groupChats[groupID].startThread();
+                    //groupChats[groupID].loadCache();
                 }
+                //loadUnread(groupID);
             }
             // Add group on screen
             if (hasgroup[groupID] == false)
             {
                 hasgroup[groupID] = true;
                 ChatGroup cg = new ChatGroup(groupID, groupID);
-                Program.GroupList.Add(cg);
+                Program.GroupList[groupID] = cg;
                 Program.MW.MainWindow_Enter(new object(), new EventArgs());
             }
         }
@@ -132,21 +139,24 @@ namespace Ezzen
             {
                 String msg = "C" + Message.Separator + "EXTG" + Message.Separator + clientID + Message.Separator + groupID;
                 sendMsg(msg);
-                groupChats[groupID].abortThread();
-                groupChats[groupID].saveCache();
-                groupChats.Remove(groupID);
+                //groupChats[groupID].abortThread();
+                //groupChats[groupID].saveCache();
+                //groupChats.Remove(groupID);
             }
-            // Remove group on screen 
+            // Remove group on screen and save to cache
             if (hasgroup[groupID])
             {
                 hasgroup[groupID] = false;
-                foreach (ChatGroup g in Program.GroupList)
-                {
-                    if(g.GroupName == groupID)
-                    {
-                        Program.GroupList.Remove(g);
-                    }
-                }
+                Program.GroupList.Remove(groupID);
+                //foreach (ChatGroup g in Program.GroupList)
+                //{
+                //    if(g.GroupName == groupID)
+                //    {
+                        //g.getGroupMessenger().abortThread();
+                        //g.getGroupMessenger.saveCache();
+                //        Program.GroupList.Remove(g);
+                //    }
+                //}
             }
         }
 
@@ -156,20 +166,22 @@ namespace Ezzen
             {
                 String msg = "C" + Message.Separator + "LEVG" + Message.Separator + clientID + Message.Separator + groupID;
                 sendMsg(msg);
-                groupChats[groupID].abortThread();
-                groupChats.Remove(groupID);
+                //groupChats[groupID].abortThread();
+                //groupChats.Remove(groupID);
             }
-            // Remove group on screen and delete local cache
+            // Remove group on screen
             if (hasgroup[groupID])
             {
-                hasgroup[groupID] = false;
-                foreach (ChatGroup g in Program.GroupList)
-                {
-                    if (g.GroupName == groupID)
-                    {
-                        Program.GroupList.Remove(g);
-                    }
-                }
+               hasgroup[groupID] = false;
+                Program.GroupList.Remove(groupID);
+                //foreach (ChatGroup g in Program.GroupList)
+              // {
+               //     if (g.GroupName == groupID)
+                 //   {
+                  //      g.getGroupMessenger().abortThread();
+                 //       Program.GroupList.Remove(g);
+                 //   }
+              //  }
             }
         }
 
@@ -185,9 +197,9 @@ namespace Ezzen
             {
                 try
                 {
-                    serverStream.Flush();
                     byte[] outStream = System.Text.Encoding.ASCII.GetBytes(msg);
                     serverStream.Write(outStream, 0, outStream.Length);
+                    serverStream.Flush();
                 }
                 catch (IOException)
                 {
@@ -206,14 +218,14 @@ namespace Ezzen
                     return System.Text.Encoding.ASCII.GetString(inStream).Trim((char)000, '\n');
                 }
                 catch (IOException){
-                    try{
+                    /*try{
                         recvMessageThread.Abort();
-                        if (!backupServer) { connect("35.185.224.125"); backupServer = true; }
-                        else { connect("104.199.115.20"); backupServer = false; }
+                        if (!backupServer) { connect("104.199.115.20", 9999); backupServer = true; }
+                        else { connect("104.199.115.20", 8888); backupServer = false; }
                     }
                     catch (IOException){
                         //GG all server is down.
-                    }
+                    }*/
                 }
             }
             return "";
@@ -224,14 +236,15 @@ namespace Ezzen
             while (true)
             {
                 String msg = recvMessage();
-                Console.WriteLine(msg);
+                Console.WriteLine("Asyn: " + msg);
                 String[] proc_msg = Message.splitString(msg);
                 if (proc_msg[0] == "M")
                 {
                     Message tmp = new Message(Convert.ToUInt32(proc_msg[1]), proc_msg[2], proc_msg[4], Convert.ToDateTime(proc_msg[5]));
                     lock (syncLock)
                     {
-                        if (groupChats.ContainsKey(proc_msg[2])) groupChats[proc_msg[2]].feedBuffer(tmp);
+                        //if (groupChats.ContainsKey(proc_msg[3])) groupChats[proc_msg[3]].feedBuffer(tmp);
+                        if (Program.GroupList.ContainsKey(proc_msg[3])) Program.GroupList[proc_msg[3]].getGroupMessenger().feedBuffer(tmp);
                     }
                 }
             }
@@ -239,28 +252,33 @@ namespace Ezzen
 
         private void loadCache()
         {
-            using (StreamReader sr = File.OpenText(cachePath))
+            try
             {
-                String msg;
-                while ((msg = sr.ReadLine()) != null)
+                using (StreamReader sr = File.OpenText(cachePath))
                 {
-                    GroupMessenger tmp = new GroupMessenger(msg, clientID);
-                    tmp.loadCache();
-                    groupChats.Add(msg, tmp);
+                    String msg;
+                    while ((msg = sr.ReadLine()) != null)
+                    {
+                        //GroupMessenger tmp = new GroupMessenger(msg, clientID);
+                        //tmp.loadCache();
+                        //groupChats.Add(msg, tmp);
+                    }
                 }
             }
+            catch (FileNotFoundException) { }
         }
 
         private void saveCache()
         {
+            System.IO.File.Create(cachePath).Close();
             using (StreamWriter sw = File.CreateText(cachePath))
             {
                 foreach (var pair in groupChats)
                 {
-                    sw.WriteLine(pair.Key);
-                    pair.Value.saveCache();
+                    //sw.WriteLine(pair.Key);
+                    //pair.Value.saveCache();
                 }
-                groupChats.Clear();
+                //groupChats.Clear();
             }
         }
 

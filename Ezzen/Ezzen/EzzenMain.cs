@@ -57,12 +57,26 @@ namespace Ezzen
         /// </summary>
         private void SendButton_Click(object sender, EventArgs e)
         {
-            if (MsgPanel.Text == "") return;
+            //if (MsgPanel.Text == "") return;
             socket.send(GroupID.Text, UserIDLabel.Text, MsgPanel.Text, DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.fffffff", CultureInfo.InvariantCulture));
-            ChatBox.AppendText("You said:");
-            ChatBox.AppendText("\n" + MsgPanel.Text + "\n");
+            //ChatBox.AppendText("You said:");
+            //ChatBox.AppendText("\n" + MsgPanel.Text + "\n");
             MsgPanel.Focus();
             MsgPanel.Text = "";
+        }
+
+        delegate void StringArgReturningVoidDelegate(string text);
+
+        public void AppendText(string text)
+        {
+            if (this.ChatBox.InvokeRequired)
+            {
+                this.ChatBox.Invoke(new StringArgReturningVoidDelegate(AppendText), new object[] { text });
+            }
+            else
+            {
+                this.ChatBox.AppendText(text);
+            }
         }
         private bool keyEnter = false;
         private void MsgPanel_KeyDown(object sender, KeyEventArgs e)
@@ -283,7 +297,7 @@ namespace Ezzen
                 writer.Close();
             }
 
-            socket.logout();
+            //socket.logout();
         }
 
         /// <summary>
@@ -348,8 +362,8 @@ namespace Ezzen
         public void MainWindow_Enter(object sender, EventArgs e)
         {
             GroupPanel1.Controls.Clear();
-            Program.GroupList.Sort();
-            foreach (ChatGroup c in Program.GroupList)
+            //Program.GroupList.Sort();
+            foreach (ChatGroup c in Program.GroupList.Values)
             {
                 GroupPanel1.Controls.Add(c);
             }
