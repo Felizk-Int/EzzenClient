@@ -29,7 +29,6 @@ namespace Ezzen
         public ClientSocket()
         {
             clientSocket = new System.Net.Sockets.TcpClient();
-            serverStream = default(NetworkStream);
             clientID = null;
             cachePath = null;
             groupChats = new Dictionary<string, GroupMessenger>();
@@ -121,7 +120,7 @@ namespace Ezzen
                     //groupChats[groupID].startThread();
                     //groupChats[groupID].loadCache();
                 }
-                //loadUnread(groupID);
+                
             }
             // Add group on screen
             if (hasgroup[groupID] == false)
@@ -131,6 +130,7 @@ namespace Ezzen
                 Program.GroupList[groupID] = cg;
                 Program.MW.MainWindow_Enter(new object(), new EventArgs());
             }
+            loadUnread(groupID);
         }
 
         public void exitGroup(String groupID)
@@ -187,7 +187,7 @@ namespace Ezzen
 
         public void loadUnread(String groupID)
         {
-            String msg = "C" + Message.Separator + "LUNR" + Message.Separator + clientID + Message.Separator + groupID + Message.Separator + groupChats[groupID].getLastMessageNo().ToString();
+            String msg = "C" + Message.Separator + "LUNR" + Message.Separator + clientID + Message.Separator + groupID + Message.Separator +  Program.GroupList[groupID].getGroupMessenger().getLastMessageNo();
             sendMsg(msg);
         }
 
@@ -195,16 +195,16 @@ namespace Ezzen
         {
             lock (streamLock)
             {
-                try
-                {
+              //  try
+              //  {
                     byte[] outStream = System.Text.Encoding.ASCII.GetBytes(msg);
                     serverStream.Write(outStream, 0, outStream.Length);
                     serverStream.Flush();
-                }
-                catch (IOException)
-                {
-                    
-                }
+              //  }
+              //  catch (IOException)
+              //  {
+              //      
+              // }
             }
         }
 
@@ -215,7 +215,7 @@ namespace Ezzen
                 try{
                     byte[] inStream = new byte[512];
                     serverStream.Read(inStream, 0, 512);
-                    return System.Text.Encoding.ASCII.GetString(inStream).Trim((char)000, '\n');
+                    return System.Text.Encoding.ASCII.GetString(inStream).Trim((char)000);
                 }
                 catch (IOException){
                     /*try{
@@ -236,15 +236,16 @@ namespace Ezzen
             while (true)
             {
                 String msg = recvMessage();
-                Console.WriteLine("Asyn: " + msg);
-                String[] proc_msg = Message.splitString(msg);
-                if (proc_msg[0] == "M")
-                {
-                    Message tmp = new Message(Convert.ToUInt32(proc_msg[1]), proc_msg[2], proc_msg[4], Convert.ToDateTime(proc_msg[5]));
-                    lock (syncLock)
+                String[] msgs = msg.Split('\n');
+                foreach (String mess in msgs){
+                    String[] proc_msg = Message.splitString(mess);
+                    if (proc_msg[0] == "M")
                     {
-                        //if (groupChats.ContainsKey(proc_msg[3])) groupChats[proc_msg[3]].feedBuffer(tmp);
-                        if (Program.GroupList.ContainsKey(proc_msg[3])) Program.GroupList[proc_msg[3]].getGroupMessenger().feedBuffer(tmp);
+                        Message tmp = new Message(Convert.ToUInt32(proc_msg[1]), proc_msg[2], proc_msg[4], Convert.ToDateTime(proc_msg[5]));
+                        lock (syncLock)
+                        {
+                            if (Program.GroupList.ContainsKey(proc_msg[3])) Program.GroupList[proc_msg[3]].getGroupMessenger().feedBuffer(tmp);
+                        }
                     }
                 }
             }
