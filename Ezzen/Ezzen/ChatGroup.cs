@@ -14,17 +14,20 @@ namespace Ezzen
         private string gid;
         private string latestMID = "0";
         private ChatBox chatbox;
+        private string clientID;
         public GroupMessenger groupMessenger;
+
 
         //getters & setters
         public string GroupName { get => groupName; }
         public string Gid { get => gid; }
         public string LatestMID { get => latestMID; set => latestMID = value; }
 
-        public ChatGroup(string gName, string gID)
+        public ChatGroup(string gName, string gID, string clientID)
         {
             this.groupName = gName;
             this.gid = gID;
+            this.clientID = clientID;
             this.FlatStyle = FlatStyle.Flat;
             this.FlatAppearance.BorderSize = 0;
             this.Font = new System.Drawing.Font("Tw Cen MT", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -37,8 +40,8 @@ namespace Ezzen
             this.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.MouseClick += chatGroup_MouseClick;
             this.chatbox = new ChatBox(gName);
-            this.groupMessenger = new GroupMessenger(gID, Program.MW.UserIDLabel1.Text, chatbox);
-            //groupMessenger.loadCache();
+            this.groupMessenger = new GroupMessenger(gID, clientID, chatbox);
+            groupMessenger.loadCache();
             groupMessenger.startThread();
         }
 
@@ -49,6 +52,7 @@ namespace Ezzen
             Program.MW.GroupName1.Visible = true;
             Program.MW.GroupID1.Visible = true;
             chatbox.BringToFront();
+            Program.MW.currentGroup = this;
             //Program.MW.ChatBox1.BringToFront();
             //Program.MW.ChatBox1.Visible = true;
             //Program.MW.ChatBox1.Text = "";
@@ -57,6 +61,16 @@ namespace Ezzen
             //Program.MW.MsgPanel1.Text = "";
             //Program.MW.SendButton1.Show();
             //Load Message
+        }
+
+        public void removeChat(){
+            groupMessenger.abortThread();
+            groupMessenger.saveCache();
+            chatbox.Hide();
+            Program.MW.MessagesBox1.Controls.Remove(chatbox);
+            this.Hide();
+            Program.MW.GroupPanel1.Controls.Remove(this);
+            Program.MW.GroupPanel1.Refresh();
         }
 
         public int CompareTo(object x)
@@ -118,6 +132,7 @@ namespace Ezzen
             else
             {
                 this.chatScreen.AppendText(text);
+                this.chatScreen.ScrollToCaret();
             }
         }
 

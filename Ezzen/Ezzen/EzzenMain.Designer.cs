@@ -239,6 +239,7 @@ namespace Ezzen
             this.LeaveGroup.Size = new System.Drawing.Size(300, 41);
             this.LeaveGroup.TabIndex = 2;
             this.LeaveGroup.MouseEnter += new System.EventHandler(this.LeaveGroup_MouseEnter);
+            this.LeaveGroup.Click += new System.EventHandler(this.LeaveGroup_MouseClick);
             // 
             // JoinGroup
             // 

@@ -24,7 +24,6 @@ namespace Ezzen
 
         private void CloseButton_Click(object sender, EventArgs e)
         {
-            Program.MW.Socket.logout();
             this.Close();
             Program.MW.Socket.disconnect();
             Application.Exit();

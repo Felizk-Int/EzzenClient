@@ -28,7 +28,6 @@ namespace Ezzen
 
         public ClientSocket()
         {
-            clientSocket = new System.Net.Sockets.TcpClient();
             clientID = null;
             cachePath = null;
             groupChats = new Dictionary<string, GroupMessenger>();
@@ -43,6 +42,7 @@ namespace Ezzen
 
         public void connect(String ipaddress, int port)
         {
+            clientSocket = new System.Net.Sockets.TcpClient();
             clientSocket.Connect(ipaddress, port);
             serverStream = clientSocket.GetStream();
             serverStream.ReadTimeout = 500;
@@ -89,7 +89,7 @@ namespace Ezzen
                 {
                     clientID = proc_msg[2];
                     cachePath = "localcache\\" + clientID + ".txt";
-                    //loadCache();
+                    loadCache();
                     return clientID;
                 }
                 else if (proc_msg[1] == "FAIL") return "LOGIN FAIL";
@@ -101,7 +101,7 @@ namespace Ezzen
             lock (syncLock){
                 String msg = "C" + Message.Separator + "LOGO" + Message.Separator + clientID;
                 sendMsg(msg);
-                //saveCache();
+                saveCache();
                 clientID = null;
                 cachePath = null;
             }
@@ -126,7 +126,7 @@ namespace Ezzen
             if (hasgroup[groupID] == false)
             {
                 hasgroup[groupID] = true;
-                ChatGroup cg = new ChatGroup(groupID, groupID);
+                ChatGroup cg = new ChatGroup(groupID, groupID, clientID);
                 Program.GroupList[groupID] = cg;
                 Program.MW.MainWindow_Enter(new object(), new EventArgs());
             }
@@ -173,6 +173,7 @@ namespace Ezzen
             if (hasgroup[groupID])
             {
                hasgroup[groupID] = false;
+                Program.GroupList[groupID].getGroupMessenger().removeCache();
                 Program.GroupList.Remove(groupID);
                 //foreach (ChatGroup g in Program.GroupList)
               // {
@@ -195,16 +196,33 @@ namespace Ezzen
         {
             lock (streamLock)
             {
-              //  try
-              //  {
+              try
+             {
                     byte[] outStream = System.Text.Encoding.ASCII.GetBytes(msg);
                     serverStream.Write(outStream, 0, outStream.Length);
                     serverStream.Flush();
-              //  }
-              //  catch (IOException)
-              //  {
-              //      
-              // }
+                
+              }
+              catch (IOException)
+              {
+                   try{
+                        recvMessageThread.Abort();
+                        clientSocket.Close();
+                        serverStream.Close();
+                        if (!backupServer) { connect("104.199.115.20", 9999); backupServer = true; }
+                        else { connect("104.199.115.20", 8888); backupServer = false; }
+                        serverStream = clientSocket.GetStream();
+                        serverStream.ReadTimeout = 500;
+                        recvMessageThread.Start();
+                        //Resend Message
+                        byte[] outStream = System.Text.Encoding.ASCII.GetBytes(msg);
+                        serverStream.Write(outStream, 0, outStream.Length);
+                        serverStream.Flush();
+                    }
+                    catch (IOException){
+                        //GG all server is down.
+                    }
+              }
             }
         }
 
@@ -215,17 +233,10 @@ namespace Ezzen
                 try{
                     byte[] inStream = new byte[512];
                     serverStream.Read(inStream, 0, 512);
-                    return System.Text.Encoding.ASCII.GetString(inStream).Trim((char)000);
+                    return System.Text.Encoding.ASCII.GetString(inStream).Trim((char)000, '\n');
                 }
                 catch (IOException){
-                    /*try{
-                        recvMessageThread.Abort();
-                        if (!backupServer) { connect("104.199.115.20", 9999); backupServer = true; }
-                        else { connect("104.199.115.20", 8888); backupServer = false; }
-                    }
-                    catch (IOException){
-                        //GG all server is down.
-                    }*/
+
                 }
             }
             return "";
@@ -260,10 +271,11 @@ namespace Ezzen
                     String msg;
                     while ((msg = sr.ReadLine()) != null)
                     {
-                        //GroupMessenger tmp = new GroupMessenger(msg, clientID);
-                        //tmp.loadCache();
-                        //groupChats.Add(msg, tmp);
+                        ChatGroup tmp = new ChatGroup(msg, msg, clientID);
+                        tmp.getGroupMessenger().loadCache();
+                        Program.GroupList.Add(msg, tmp);
                     }
+                    Program.MW.MainWindow_Enter(new object(), new EventArgs());
                 }
             }
             catch (FileNotFoundException) { }
@@ -274,12 +286,12 @@ namespace Ezzen
             System.IO.File.Create(cachePath).Close();
             using (StreamWriter sw = File.CreateText(cachePath))
             {
-                foreach (var pair in groupChats)
+                foreach (var pair in Program.GroupList)
                 {
-                    //sw.WriteLine(pair.Key);
-                    //pair.Value.saveCache();
+                    sw.WriteLine(pair.Key);
+                    pair.Value.getGroupMessenger().saveCache();
                 }
-                //groupChats.Clear();
+                Program.GroupList.Clear();
             }
         }
 

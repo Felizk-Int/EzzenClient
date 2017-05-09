@@ -74,6 +74,14 @@ namespace Ezzen
             }
         }
 
+        public void removeCache()
+        {
+            try {
+                System.IO.File.Delete(cachePath);
+            }
+            catch (FileNotFoundException) {}
+        }
+
         public void feedMessage(Message message)
         {
             chats.Add(message);
@@ -120,7 +128,7 @@ namespace Ezzen
 
     public class Message
     {
-        public const char Separator = ((char)007);
+        public const char Separator = ' ';//((char)007);
 
         private uint messageNo;
         public String clientID;

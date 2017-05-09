@@ -19,6 +19,7 @@ namespace Ezzen
 
         ClientSocket socket;
         public ClientSocket Socket { get => socket; }
+        public ChatGroup currentGroup;
 
         public MainWindow()
         {
@@ -172,6 +173,12 @@ namespace Ezzen
             LeaveGroup.BackColor = System.Drawing.Color.FromArgb(80, Color.White);
         }
 
+        private void LeaveGroup_MouseClick(object sender, EventArgs e){
+            String groupID = currentGroup.getGroupMessenger().getGroupID();
+            Program.MW.Socket.leaveGroup(groupID);
+            currentGroup.removeChat();
+        }
+
         /// <summary>
         /// Auto Scroll
         /// </summary>
@@ -269,6 +276,8 @@ namespace Ezzen
         /// </summary>
         private void SignOutButton_Click(object sender, EventArgs e)
         {
+            socket.logout();
+            
             ChatButton_Click(sender, e);
             Program.MW.GroupName1.Visible = false;
             Program.MW.GroupID1.Visible = false;
@@ -296,8 +305,6 @@ namespace Ezzen
                 }
                 writer.Close();
             }
-
-            //socket.logout();
         }
 
         /// <summary>
@@ -345,7 +352,7 @@ namespace Ezzen
                 Console.WriteLine(ex.Message);
             }
 
-            if (d["[remember]"] == "0")
+            /*if (d["[remember]"] == "0")
             {
                 this.SignOutButton_Click(sender, e);
             }
@@ -354,9 +361,12 @@ namespace Ezzen
                 socket.login(d["[user]"], d["[pass]"]);
                 Program.MW.UsernameLabel1.Text = d["[user]"];
                 Program.MW.UserIDLabel1.Text = socket.ClientID;
-            }
+            }*/
+            LoginForm lgf = new LoginForm();
+            this.Hide();
+            lgf.Show();
 
-            MainWindow_Enter(sender, e);
+            //MainWindow_Enter(sender, e);
         }
 
         public void MainWindow_Enter(object sender, EventArgs e)
