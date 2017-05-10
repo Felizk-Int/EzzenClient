@@ -1,0 +1,12 @@
+C:\Users\Athip\Desktop\to delete\DisSysEssen\EzzenClient\Ezzen\Ezzen\bin\Release\Ezzen.exe.config
+C:\Users\Athip\Desktop\to delete\DisSysEssen\EzzenClient\Ezzen\Ezzen\bin\Release\Ezzen.exe
+C:\Users\Athip\Desktop\to delete\DisSysEssen\EzzenClient\Ezzen\Ezzen\bin\Release\Ezzen.pdb
+C:\Users\Athip\Desktop\to delete\DisSysEssen\EzzenClient\Ezzen\Ezzen\obj\Release\Ezzen.CreateGroupForm.resources
+C:\Users\Athip\Desktop\to delete\DisSysEssen\EzzenClient\Ezzen\Ezzen\obj\Release\Ezzen.MainWindow.resources
+C:\Users\Athip\Desktop\to delete\DisSysEssen\EzzenClient\Ezzen\Ezzen\obj\Release\Ezzen.JoinGroupForm.resources
+C:\Users\Athip\Desktop\to delete\DisSysEssen\EzzenClient\Ezzen\Ezzen\obj\Release\Ezzen.LoginForm.resources
+C:\Users\Athip\Desktop\to delete\DisSysEssen\EzzenClient\Ezzen\Ezzen\obj\Release\Ezzen.Properties.Resources.resources
+C:\Users\Athip\Desktop\to delete\DisSysEssen\EzzenClient\Ezzen\Ezzen\obj\Release\Ezzen.RegForm.resources
+C:\Users\Athip\Desktop\to delete\DisSysEssen\EzzenClient\Ezzen\Ezzen\obj\Release\Ezzen.csproj.GenerateResource.Cache
+C:\Users\Athip\Desktop\to delete\DisSysEssen\EzzenClient\Ezzen\Ezzen\obj\Release\Ezzen.exe
+C:\Users\Athip\Desktop\to delete\DisSysEssen\EzzenClient\Ezzen\Ezzen\obj\Release\Ezzen.pdb
