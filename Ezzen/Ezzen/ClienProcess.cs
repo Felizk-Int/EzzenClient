@@ -53,7 +53,12 @@ namespace Ezzen
         {
             recvMessageThread.Abort();
             String msg = "C" + Message.Separator + "DISC" + Message.Separator + clientID;
-            sendMsg(msg);
+            try{
+                byte[] outStream = System.Text.Encoding.ASCII.GetBytes(msg);
+                serverStream.Write(outStream, 0, outStream.Length);
+                serverStream.Flush();
+            }
+            catch (IOException) {}
             clientSocket.Close();
         }
 
@@ -129,8 +134,8 @@ namespace Ezzen
                 ChatGroup cg = new ChatGroup(groupID, groupID, clientID);
                 Program.GroupList[groupID] = cg;
                 Program.MW.MainWindow_Enter(new object(), new EventArgs());
+                loadUnread(groupID);
             }
-            loadUnread(groupID);
         }
 
         public void exitGroup(String groupID)
@@ -147,6 +152,7 @@ namespace Ezzen
             if (hasgroup[groupID])
             {
                 hasgroup[groupID] = false;
+                Program.GroupList[groupID].getGroupMessenger().saveCache();
                 Program.GroupList.Remove(groupID);
                 //foreach (ChatGroup g in Program.GroupList)
                 //{
@@ -271,9 +277,7 @@ namespace Ezzen
                     String msg;
                     while ((msg = sr.ReadLine()) != null)
                     {
-                        ChatGroup tmp = new ChatGroup(msg, msg, clientID);
-                        tmp.getGroupMessenger().loadCache();
-                        Program.GroupList.Add(msg, tmp);
+                        joinGroup(msg);
                     }
                     Program.MW.MainWindow_Enter(new object(), new EventArgs());
                 }
